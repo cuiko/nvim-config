@@ -1,22 +1,31 @@
 return {
   {
-    "NvChad/nvterm",
+    "akinsho/toggleterm.nvim",
+    version = "*",
     keys = {
       {
         "<leader>ft",
-        function()
-          require("nvterm.terminal").toggle("horizontal")
-        end,
-        desc = "Terminal (horizontal)",
+        "<cmd>ToggleTerm direction=horizontal<cr>",
+        desc = "Terminal (root dir)",
       },
       {
-        "<c-/>",
-        function()
-          require("nvterm.terminal").toggle("float")
-        end,
+        "<c-t>",
+        "<cmd>ToggleTerm direction=float<cr>",
         desc = "Terminal (float)",
       },
     },
-    opts = {},
+    opts = {
+      open_mapping = [[<c-\>]],
+      shading_factor = -10,
+      highlights = {
+        FloatBorder = {
+          guifg = "SteelBlue",
+        },
+      },
+      float_opts = {
+        border = "curved",
+        winblend = 5,
+      },
+    },
   },
 }
