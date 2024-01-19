@@ -24,9 +24,7 @@ return {
       lsp_doc_border = {
         views = {
           hover = {
-            border = {
-              style = "rounded",
-            },
+            border = { style = "rounded" },
             position = { row = 2, col = 3 },
           },
         },

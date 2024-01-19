@@ -5,5 +5,13 @@
 local keymaps = require("util.keymaps")
 
 keymaps.del({
-  { "n", { "<leader>fT", "<leader>K" } },
+  {
+    "n",
+    {
+      -- Keywordprg
+      "<leader>K",
+      -- Terminal (cwd)
+      "<leader>fT",
+    },
+  },
 })

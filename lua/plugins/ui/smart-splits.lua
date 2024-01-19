@@ -3,6 +3,7 @@ return {
   dependencies = {
     "kwkarlwang/bufresize.nvim",
   },
+  event = "VeryLazy",
   keys = function()
     return {
       { "<C-h>", require("smart-splits").move_cursor_left, desc = "Go to the left window", mode = { "n" } },

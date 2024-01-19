@@ -1,5 +1,7 @@
+-- quick run
 return {
   "is0n/jaq-nvim",
+  event = "VeryLazy",
   keys = {
     {
       "<leader>ce",
