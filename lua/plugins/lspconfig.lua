@@ -20,6 +20,9 @@ return {
           border = "rounded",
         },
       },
+      inlay_hints = {
+        enabled = true,
+      },
     },
   },
 }
