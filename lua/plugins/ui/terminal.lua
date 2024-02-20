@@ -8,11 +8,11 @@ return {
       "<cmd>ToggleTerm direction=horizontal<cr>",
       desc = "Terminal (root dir)",
     },
-    {
-      "<c-t>",
-      "<cmd>ToggleTerm direction=float<cr>",
-      desc = "Terminal (float)",
-    },
+    -- {
+    --   "<c-t>",
+    --   "<cmd>ToggleTerm direction=float<cr>",
+    --   desc = "Terminal (float)",
+    -- },
   },
   opts = {
     size = function(term)

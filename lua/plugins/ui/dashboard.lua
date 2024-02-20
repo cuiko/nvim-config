@@ -11,7 +11,7 @@ return {
          ╚══════╝╚═╝  ╚═╝╚══════╝   ╚═╝     ╚═══╝  ╚═╝╚═╝     ╚═╝           
     ]]
 
-    logo = string.rep("\n", 5) .. logo .. string.rep("\n", 2)
+    logo = string.rep("\n", 4) .. logo .. string.rep("\n", 2)
 
     local opts = {
       theme = "doom",

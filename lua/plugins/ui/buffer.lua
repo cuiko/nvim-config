@@ -103,14 +103,14 @@ return {
         desc = "Buffer explorer (Harpoon)",
       },
       {
-        "<c-p>",
+        "<leader>bH",
         function()
           require("harpoon"):list():prev({ ui_nav_wrap = true })
         end,
         desc = "Prev buffer (Harpoon)",
       },
       {
-        "<c-n>",
+        "<leader>bL",
         function()
           require("harpoon"):list():next({ ui_nav_wrap = true })
         end,

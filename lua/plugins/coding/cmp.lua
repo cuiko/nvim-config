@@ -1,14 +1,23 @@
 return {
   {
     "hrsh7th/nvim-cmp",
-    version = false, -- last release is way too old
-    event = "VeryLazy",
+    event = {
+      "InsertEnter",
+      "CmdlineEnter",
+    },
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
-      "saadparwaiz1/cmp_luasnip",
       "hrsh7th/cmp-cmdline",
+      "saadparwaiz1/cmp_luasnip",
+      "kristijanhusak/vim-dadbod-completion",
+      {
+        "Exafunction/codeium.nvim",
+        cmd = "Codeium",
+        build = ":Codeium Auth",
+        opts = {},
+      },
       {
         "onsails/lspkind.nvim",
         opts = {
@@ -28,31 +37,46 @@ return {
           --
           -- default: {}
           symbol_map = {
+            Array = " ",
+            Boolean = "󰨙 ",
             Class = " ",
-            Color = "󰏘 ",
+            Codeium = "󰘦 ",
+            Color = " ",
+            Control = " ",
+            Collapsed = " ",
             Constant = "󰏿 ",
             Constructor = " ",
+            Copilot = " ",
             Enum = " ",
-            Event = " ",
             EnumMember = " ",
-            Field = "󰜢 ",
-            File = "󰈙 ",
-            Folder = "󰉋 ",
+            Event = " ",
+            Field = " ",
+            File = " ",
+            Folder = " ",
             Function = "󰊕 ",
             Interface = " ",
-            Keyword = "󰌋 ",
-            Method = "󰆧 ",
-            Module = " ",
-            Operator = "󰆕 ",
-            Property = "󰜢 ",
-            Snippet = " ",
-            Struct = "󰙅 ",
-            Text = "󰉿 ",
+            Key = " ",
+            Keyword = " ",
+            Method = "󰊕 ",
+            Module = " ",
+            Namespace = "󰦮 ",
+            Null = " ",
+            Number = "󰎠 ",
+            Object = " ",
+            Operator = " ",
+            Package = " ",
+            Property = " ",
+            Reference = " ",
+            Snippet = " ",
+            String = " ",
+            Struct = "󰆼 ",
+            TabNine = "󰏚 ",
+            Text = " ",
             TypeParameter = " ",
-            Unit = "󰑭 ",
-            Value = "󰎠 ",
-            Variable = " ",
-            Reference = "󰈇 ",
+            Unit = " ",
+            Value = " ",
+            Variable = "󰀫 ",
+            Codeium = "",
           },
         },
         config = function(_, opts)
@@ -106,6 +130,7 @@ return {
         }),
 
         sources = cmp.config.sources({
+          { name = "codeium" },
           { name = "nvim_lsp" },
           { name = "luasnip" },
           { name = "path" },
@@ -173,6 +198,18 @@ return {
         }, {
           { name = "cmdline" },
         }),
+      })
+
+      vim.api.nvim_create_autocmd("Filetype", {
+        desc = "Setup cmp buffer sql source",
+        pattern = "sql",
+        callback = function()
+          cmp.setup.buffer({
+            sources = {
+              { name = "vim-dadbod-completion" },
+            },
+          })
+        end,
       })
 
       cmp.setup(opts)
