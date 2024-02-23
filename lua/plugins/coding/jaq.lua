@@ -22,6 +22,7 @@ return {
         markdown = "glow %",
         python = "python3 %",
         go = "go run %",
+        rust = "cargo run %",
         sh = "sh %",
       },
     },

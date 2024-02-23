@@ -18,6 +18,11 @@ return {
         build = ":Codeium Auth",
         opts = {},
       },
+      -- {
+      --   "zbirenbaum/copilot-cmp",
+      --   dependencies = "zbirenbaum/copilot.lua",
+      --   opts = {},
+      -- },
       {
         "onsails/lspkind.nvim",
         opts = {
@@ -36,48 +41,7 @@ return {
           -- override preset symbols
           --
           -- default: {}
-          symbol_map = {
-            Array = " ",
-            Boolean = "󰨙 ",
-            Class = " ",
-            Codeium = "󰘦 ",
-            Color = " ",
-            Control = " ",
-            Collapsed = " ",
-            Constant = "󰏿 ",
-            Constructor = " ",
-            Copilot = " ",
-            Enum = " ",
-            EnumMember = " ",
-            Event = " ",
-            Field = " ",
-            File = " ",
-            Folder = " ",
-            Function = "󰊕 ",
-            Interface = " ",
-            Key = " ",
-            Keyword = " ",
-            Method = "󰊕 ",
-            Module = " ",
-            Namespace = "󰦮 ",
-            Null = " ",
-            Number = "󰎠 ",
-            Object = " ",
-            Operator = " ",
-            Package = " ",
-            Property = " ",
-            Reference = " ",
-            Snippet = " ",
-            String = " ",
-            Struct = "󰆼 ",
-            TabNine = "󰏚 ",
-            Text = " ",
-            TypeParameter = " ",
-            Unit = " ",
-            Value = " ",
-            Variable = "󰀫 ",
-            Codeium = "",
-          },
+          symbol_map = require("config.icons").kinds,
         },
         config = function(_, opts)
           require("lspkind").init(opts)
@@ -91,6 +55,29 @@ return {
       local cmp_window = require("cmp.config.window")
       local lspkind = require("lspkind")
       local compare = require("cmp.config.compare")
+      local copilot_trigger = {
+        ".",
+        ":",
+        "(",
+        "'",
+        '"',
+        "[",
+        ",",
+        "#",
+        "*",
+        "@",
+        "|",
+        "=",
+        "-",
+        "{",
+        "/",
+        "\\",
+        "+",
+        "?",
+        " ",
+        -- "\t",
+        -- "\n",
+      }
 
       return {
         window = {
@@ -130,7 +117,18 @@ return {
         }),
 
         sources = cmp.config.sources({
-          { name = "codeium" },
+          -- {
+          --   name = "copilot",
+          --   -- keyword_length = 0,
+          --   max_item_count = 3,
+          --   trigger_characters = copilot_trigger,
+          -- },
+          {
+            name = "codeium",
+            -- keyword_length = 0,
+            max_item_count = 3,
+            trigger_characters = copilot_trigger,
+          },
           { name = "nvim_lsp" },
           { name = "luasnip" },
           { name = "path" },
@@ -236,8 +234,8 @@ return {
     -- stylua: ignore
     keys = {
       {
-        "<tab>", 
-        function() return require("luasnip").jumpable(1) and "<Plug>luasnip-jump-next" or "<tab>" end, 
+        "<tab>",
+        function() return require("luasnip").jumpable(1) and "<Plug>luasnip-jump-next" or "<tab>" end,
         expr = true, silent = true,
         mode = "i",
       },

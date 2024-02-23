@@ -1,12 +1,6 @@
 return {
   "smjonas/inc-rename.nvim",
   event = "VeryLazy",
+  cmd = { "IncRename" },
   opts = {},
-  keys = {
-    {
-      "<leader>cr",
-      "<cmd>IncRename<cr>",
-      desc = "Rename",
-    },
-  },
 }
