@@ -13,7 +13,5 @@ return {
       desc = "Toggle Colorizer",
     },
   },
-  cmd = {
-    "ColorizerToggle",
-  },
+  cmd = { "ColorizerToggle" },
 }
