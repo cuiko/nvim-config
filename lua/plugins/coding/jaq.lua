@@ -1,7 +1,6 @@
 -- quick run
 return {
   "is0n/jaq-nvim",
-  event = "VeryLazy",
   init = function()
     -- https://github.com/LunarVim/LunarVim/blob/b124e8c3e3f8145029c0d9aeb3912e5ac314e0a2/lua/lvim/core/autocmds.lua
     vim.api.nvim_create_augroup("_buffer_mappings", {})

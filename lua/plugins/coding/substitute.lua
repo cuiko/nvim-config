@@ -5,8 +5,6 @@ return {
   },
   {
     "ggandor/leap.nvim",
-    enabled = true,
-    event = "VeryLazy",
     keys = {
       -- { "s", mode = { "n", "x", "o" }, desc = "Leap forward to" },
       -- { "S", mode = { "n", "x", "o" }, desc = "Leap backward to" },
@@ -24,8 +22,6 @@ return {
   },
   {
     "gbprod/substitute.nvim",
-    enabled = true,
-    event = "VeryLazy",
     opts = {},
     config = function()
       vim.keymap.set("n", "s", require("substitute").operator, { noremap = true })

@@ -1,7 +1,6 @@
 return {
   {
     "karb94/neoscroll.nvim",
-    event = "VeryLazy",
     opts = {
       -- hide_cursor = false,
       easing_function = "quadratic",
@@ -46,7 +45,6 @@ return {
   {
     "petertriho/nvim-scrollbar",
     enabled = false,
-    event = "VeryLazy",
     opts = {
       show = true,
       show_in_active_only = false,

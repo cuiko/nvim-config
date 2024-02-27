@@ -1,6 +1,5 @@
 return {
   "aznhe21/actions-preview.nvim",
-  event = "VeryLazy",
   dependencies = {
     "nvim-telescope/telescope.nvim",
   },

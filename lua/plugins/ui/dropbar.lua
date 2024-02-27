@@ -1,7 +1,6 @@
--- IED-like breadcrumb nav
+-- IDE-like breadcrumb nav
 return {
   "Bekaboo/dropbar.nvim",
-  event = "VeryLazy",
   dependencies = {
     "nvim-telescope/telescope-fzf-native.nvim",
   },

@@ -1,22 +1,6 @@
 return {
   {
-    "jiaoshijie/undotree",
-    enabled = false,
-    event = "VeryLazy",
-    dependencies = "nvim-lua/plenary.nvim",
-    opts = {
-      window = {
-        winblend = 5,
-      },
-    },
-    keys = {
-      { "<leader>uu", "<cmd>lua require('undotree').toggle()<cr>", desc = "Toggle Undotree" },
-    },
-  },
-  {
     "mbbill/undotree",
-    enabled = true,
-    event = "VeryLazy",
     cmd = { "UndotreeToggle" },
     config = function()
       vim.g.undotree_DiffAutoOpen = 1

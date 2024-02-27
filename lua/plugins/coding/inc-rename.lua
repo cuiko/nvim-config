@@ -1,6 +1,32 @@
 return {
-  "smjonas/inc-rename.nvim",
-  event = "VeryLazy",
-  cmd = { "IncRename" },
-  opts = {},
+  {
+    "smjonas/inc-rename.nvim",
+    cmd = { "IncRename" },
+    opts = {},
+  },
+  {
+    "folke/noice.nvim",
+    optional = true,
+    opts = {
+      presets = {
+        inc_rename = {
+          cmdline = {
+            format = {
+              IncRename = {
+                title = " Rename ",
+                pattern = "^:%s*IncRename%s+",
+                icon = "󰤌",
+                conceal = true,
+                opts = {
+                  relative = "cursor",
+                  size = { min_width = 20 },
+                  position = { row = -2, col = 0 },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  },
 }

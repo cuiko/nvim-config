@@ -38,7 +38,6 @@ return {
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope.nvim",
     },
-    event = "VeryLazy",
     opts = {},
     keys = {
       {
