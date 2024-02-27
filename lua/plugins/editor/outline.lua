@@ -1,3 +1,4 @@
+-- code outline sidebar
 return {
   "hedyhli/outline.nvim",
   lazy = true,

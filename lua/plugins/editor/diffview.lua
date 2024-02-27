@@ -4,7 +4,7 @@ return {
     {
       "<leader>gd",
       "<cmd>DiffviewOpen<cr>",
-      desc = "Diff view",
+      desc = "Diff",
     },
   },
   cmd = { "DiffviewOpen" },
