@@ -63,10 +63,11 @@ return {
       {
         "<leader>bA",
         function()
-          local bufs_no = vim.api.nvim_list_bufs()
-          for _, buf_no in ipairs(bufs_no) do
+          local bufs = vim.fn.getbufinfo({ buflisted = 1 })
+          for _, buf in ipairs(bufs) do
+            local buf_no = buf.bufnr
             local display = get_display_by_bufno(buf_no)
-            if not require("harpoon"):list():get_by_display(display) then
+            if buf.listed and not require("harpoon"):list():get_by_display(display) then
               vim.api.nvim_buf_delete(buf_no, { force = false })
             end
           end
