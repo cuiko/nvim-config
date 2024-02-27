@@ -1,9 +1,13 @@
 -- open file by neovim
 return {
   "willothy/flatten.nvim",
+  dependencies = {
+    "akinsho/toggleterm.nvim",
+  },
   lazy = false,
   priority = 1001,
   opts = {
+    -- https://github.com/Allaman/nvim/blob/b95c7e123cbfffdd3c2328493c2865f1afa9fd09/lua/core/plugins/flatten.lua#L5
     window = {
       open = "current",
     },
