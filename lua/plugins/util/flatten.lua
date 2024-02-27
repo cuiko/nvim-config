@@ -11,6 +11,9 @@ return {
     window = {
       open = "current",
     },
+    -- set to true because of osv
+    -- https://github.com/willothy/flatten.nvim/issues/41
+    nest_if_no_args = true,
     callbacks = {
       pre_open = function()
         -- Close toggleterm when an external open request is received
