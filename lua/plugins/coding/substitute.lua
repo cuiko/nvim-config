@@ -22,6 +22,7 @@ return {
   },
   {
     "gbprod/substitute.nvim",
+    event = "VeryLazy",
     opts = {},
     config = function()
       vim.keymap.set("n", "s", require("substitute").operator, { noremap = true })
