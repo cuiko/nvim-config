@@ -31,91 +31,89 @@ local function toggle_telescope(harpoon_files)
 end
 
 return {
-  {
-    "ThePrimeagen/harpoon",
-    branch = "harpoon2",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope.nvim",
+  "ThePrimeagen/harpoon",
+  branch = "harpoon2",
+  dependencies = {
+    "nvim-lua/plenary.nvim",
+    "nvim-telescope/telescope.nvim",
+  },
+  opts = {},
+  keys = {
+    {
+      "<leader>ba",
+      function()
+        local harpoon = require("harpoon")
+        local display = get_display_by_bufno(
+          -- stylua: ignore
+          vim.api.nvim_get_current_buf()
+        )
+        local item = harpoon:list():get_by_display(display)
+        local buf_name = vim.fn.expand("%:t")
+        if not item then
+          print(string.format("Append %s to Harpoon", buf_name))
+          harpoon:list():append()
+        else
+          print(string.format("Remove %s from Harpoon", buf_name))
+          harpoon:list():remove(item)
+        end
+      end,
+      desc = "Toggle Pin (Harpoon)",
     },
-    opts = {},
-    keys = {
-      {
-        "<leader>ba",
-        function()
-          local harpoon = require("harpoon")
-          local display = get_display_by_bufno(
-            -- stylua: ignore
-            vim.api.nvim_get_current_buf()
-          )
-          local item = harpoon:list():get_by_display(display)
-          local buf_name = vim.fn.expand("%:t")
-          if not item then
-            print(string.format("Append %s to Harpoon", buf_name))
-            harpoon:list():append()
-          else
-            print(string.format("Remove %s from Harpoon", buf_name))
-            harpoon:list():remove(item)
+    {
+      "<leader>bA",
+      function()
+        local bufs = vim.fn.getbufinfo({ buflisted = 1 })
+        for _, buf in ipairs(bufs) do
+          local buf_no = buf.bufnr
+          local display = get_display_by_bufno(buf_no)
+          if not require("harpoon"):list():get_by_display(display) then
+            vim.api.nvim_buf_delete(buf_no, { force = false })
           end
-        end,
-        desc = "Toggle Pin (Harpoon)",
-      },
-      {
-        "<leader>bA",
-        function()
-          local bufs = vim.fn.getbufinfo({ buflisted = 1 })
-          for _, buf in ipairs(bufs) do
-            local buf_no = buf.bufnr
-            local display = get_display_by_bufno(buf_no)
-            if not require("harpoon"):list():get_by_display(display) then
-              vim.api.nvim_buf_delete(buf_no, { force = false })
-            end
+        end
+      end,
+      desc = "Delete non-pinned buffers (Harpoon)",
+    },
+    {
+      "<leader>bc",
+      function()
+        local harpoon = require("harpoon")
+        local list = harpoon:list()
+        for _, item in ipairs(list.items) do
+          local display = get_display(item.value)
+          if not Path:new(vim.fn.getcwd()):joinpath(display):exists() then
+            list:remove(item)
           end
-        end,
-        desc = "Delete non-pinned buffers (Harpoon)",
-      },
-      {
-        "<leader>bc",
-        function()
-          local harpoon = require("harpoon")
-          local list = harpoon:list()
-          for _, item in ipairs(list.items) do
-            local display = get_display(item.value)
-            if not Path:new(vim.fn.getcwd()):joinpath(display):exists() then
-              list:remove(item)
-            end
-          end
-        end,
-        desc = "Tidy buffers (Harpoon)",
-      },
-      {
-        "<leader>bC",
-        function()
-          require("harpoon"):list():clear()
-        end,
-        desc = "Clear buffers (Harpoon)",
-      },
-      {
-        "<leader>bE",
-        function()
-          toggle_telescope(require("harpoon"):list())
-        end,
-        desc = "Buffer explorer (Harpoon)",
-      },
-      {
-        "<leader>bH",
-        function()
-          require("harpoon"):list():prev({ ui_nav_wrap = true })
-        end,
-        desc = "Prev buffer (Harpoon)",
-      },
-      {
-        "<leader>bL",
-        function()
-          require("harpoon"):list():next({ ui_nav_wrap = true })
-        end,
-        desc = "Next buffer (Harpoon)",
-      },
+        end
+      end,
+      desc = "Tidy buffers (Harpoon)",
+    },
+    {
+      "<leader>bC",
+      function()
+        require("harpoon"):list():clear()
+      end,
+      desc = "Clear buffers (Harpoon)",
+    },
+    {
+      "<leader>bE",
+      function()
+        toggle_telescope(require("harpoon"):list())
+      end,
+      desc = "Buffer explorer (Harpoon)",
+    },
+    {
+      "<leader>bH",
+      function()
+        require("harpoon"):list():prev({ ui_nav_wrap = true })
+      end,
+      desc = "Prev buffer (Harpoon)",
+    },
+    {
+      "<leader>bL",
+      function()
+        require("harpoon"):list():next({ ui_nav_wrap = true })
+      end,
+      desc = "Next buffer (Harpoon)",
     },
   },
 }

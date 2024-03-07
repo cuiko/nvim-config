@@ -25,30 +25,32 @@ return {
       -- },
       {
         "onsails/lspkind.nvim",
-        opts = {
-          -- defines how annotations are shown
-          -- default: symbol
-          -- options: 'text', 'text_symbol', 'symbol_text', 'symbol'
-          mode = "symbol_text",
+        opts = function()
+          local icons = require("config").icons
+          return {
+            -- defines how annotations are shown
+            -- default: symbol
+            -- options: 'text', 'text_symbol', 'symbol_text', 'symbol'
+            mode = "symbol_text",
 
-          -- default symbol map
-          -- can be either 'default' (requires nerd-fonts font) or
-          -- 'codicons' for codicon preset (requires vscode-codicons font)
-          --
-          -- default: 'default'
-          preset = "codicons",
+            -- default symbol map
+            -- can be either 'default' (requires nerd-fonts font) or
+            -- 'codicons' for codicon preset (requires vscode-codicons font)
+            --
+            -- default: 'default'
+            preset = "codicons",
 
-          -- override preset symbols
-          --
-          -- default: {}
-          symbol_map = require("config.icons").kinds,
-        },
+            -- override preset symbols
+            --
+            -- default: {}
+            symbol_map = icons.kinds,
+          }
+        end,
         config = function(_, opts)
           require("lspkind").init(opts)
         end,
       },
     },
-
     opts = function()
       vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
       local cmp = require("cmp")
@@ -172,7 +174,6 @@ return {
         },
       }
     end,
-
     ---@param opts cmp.ConfigSchema
     config = function(_, opts)
       local cmp = require("cmp")
@@ -230,7 +231,6 @@ return {
       delete_check_events = "TextChanged",
       region_check_events = { "CursorMoved", "CursorHold", "InsertEnter" },
     },
-
     -- stylua: ignore
     keys = {
       {

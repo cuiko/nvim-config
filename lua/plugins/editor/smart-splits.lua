@@ -3,6 +3,16 @@ return {
   dependencies = {
     "kwkarlwang/bufresize.nvim",
   },
+  opts = function()
+    return {
+      resize_mode = {
+        silent = true,
+        hooks = {
+          on_leave = require("bufresize").register,
+        },
+      },
+    }
+  end,
   keys = function()
     return {
       { "<C-h>", require("smart-splits").move_cursor_left, desc = "Go to the left window", mode = { "n" } },
@@ -19,16 +29,6 @@ return {
       { "<C-S-j>", require("smart-splits").swap_buf_down, desc = "Swap current with down", mode = { "n" } },
       { "<C-S-k>", require("smart-splits").swap_buf_up, desc = "Swap current with up", mode = { "n" } },
       { "<C-S-l>", require("smart-splits").swap_buf_right, desc = "Swap current with right", mode = { "n" } },
-    }
-  end,
-  opts = function()
-    return {
-      resize_mode = {
-        silent = true,
-        hooks = {
-          on_leave = require("bufresize").register,
-        },
-      },
     }
   end,
 }

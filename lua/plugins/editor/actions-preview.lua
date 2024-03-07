@@ -1,8 +1,6 @@
 return {
   "aznhe21/actions-preview.nvim",
-  dependencies = {
-    "nvim-telescope/telescope.nvim",
-  },
+  event = "VeryLazy",
   init = function()
     local keys = require("lazyvim.plugins.lsp.keymaps").get()
     -- overlay default keymaps
@@ -39,7 +37,7 @@ return {
         prompt_position = "top",
         preview_cutoff = 20,
         preview_height = function(_, _, max_lines)
-          return max_lines - 15
+          return max_lines - 12
         end,
       },
     },
