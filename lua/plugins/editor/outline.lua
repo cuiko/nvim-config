@@ -2,9 +2,6 @@
 return {
   "hedyhli/outline.nvim",
   cmd = { "Outline", "OutlineOpen" },
-  keys = {
-    { "<leader>cs", "<cmd>Outline<CR>", desc = "Symbols" },
-  },
   opts = {
     symbols = {
       icons = {
@@ -42,5 +39,8 @@ return {
         Macro = { icon = " ", hl = "Function" },
       },
     },
+  },
+  keys = {
+    { "<leader>cs", "<cmd>Outline<CR>", desc = "Symbols" },
   },
 }

@@ -37,7 +37,7 @@ return {
     "nvim-lua/plenary.nvim",
     "nvim-telescope/telescope.nvim",
   },
-  opts = {},
+  config = true,
   keys = {
     {
       "<leader>ba",
@@ -76,6 +76,13 @@ return {
     {
       "<leader>bc",
       function()
+        require("harpoon"):list():clear()
+      end,
+      desc = "Clear buffers (Harpoon)",
+    },
+    {
+      "<leader>bE",
+      function()
         local harpoon = require("harpoon")
         local list = harpoon:list()
         for _, item in ipairs(list.items) do
@@ -84,20 +91,7 @@ return {
             list:remove(item)
           end
         end
-      end,
-      desc = "Tidy buffers (Harpoon)",
-    },
-    {
-      "<leader>bC",
-      function()
-        require("harpoon"):list():clear()
-      end,
-      desc = "Clear buffers (Harpoon)",
-    },
-    {
-      "<leader>bE",
-      function()
-        toggle_telescope(require("harpoon"):list())
+        toggle_telescope(list)
       end,
       desc = "Buffer explorer (Harpoon)",
     },

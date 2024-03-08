@@ -2,14 +2,6 @@ return {
   "michaelb/sniprun",
   branch = "master",
   build = "sh install.sh",
-  keys = {
-    {
-      "<leader>cS",
-      "<Plug>SnipRun",
-      mode = { "n", "v" },
-      desc = "Snip Run",
-    },
-  },
   opts = {
     selected_interpreters = {
       "Go_original",
@@ -44,6 +36,14 @@ return {
       GFM_original = {
         default_filetype = "bash",
       },
+    },
+  },
+  keys = {
+    {
+      "<leader>cS",
+      "<Plug>SnipRun",
+      mode = { "n", "v" },
+      desc = "Snip Run",
     },
   },
 }

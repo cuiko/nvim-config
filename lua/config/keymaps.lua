@@ -159,7 +159,12 @@ map({
 
 -- tabs
 map({
-  { "n", "<leader><tab><tab>", "<cmd>tabnew %<cr>", { desc = "New Tab" } },
+  {
+    "n",
+    "<leader><tab><tab>",
+    [[<cmd>if expand("%") != "" | tabnew % | else | tabnew | endif <CR>]],
+    { desc = "New Tab" },
+  },
   { "n", "<leader><tab>d", "<cmd>tabclose<cr>", { desc = "Close Tab" } },
   { "n", "<leader><tab>]", "<cmd>tabnext<cr>", { desc = "Next Tab" } },
   { "n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" } },

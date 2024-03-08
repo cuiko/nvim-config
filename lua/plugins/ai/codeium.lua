@@ -7,7 +7,7 @@ return {
     opts = {},
     keys = {
       {
-        "<leader>Xc",
+        "<leader>ac",
         function()
           require("util.toggle").cmp_source("codeium")
         end,
@@ -19,12 +19,10 @@ return {
     "nvim-lualine/lualine.nvim",
     optional = true,
     opts = function(_, opts)
-      local icons = require("config").icons
-
       table.insert(
         opts.sections.lualine_x,
         2,
-        require("lazyvim.util").lualine.cmp_source("codeium", icons.kinds.Codeium)
+        require("lazyvim.util").lualine.cmp_source("codeium", require("config").icons.kinds.Codeium)
       )
     end,
   },

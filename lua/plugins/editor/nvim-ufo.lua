@@ -6,13 +6,6 @@ return {
     dependencies = {
       "kevinhwang91/promise-async",
     },
-    init = function()
-      vim.o.formatoptions = "jcroqlnt"
-      vim.o.foldcolumn = "1"
-      vim.o.foldlevel = 99
-      vim.o.foldlevelstart = 99
-      vim.o.foldenable = true
-    end,
     opts = {
       provider_selector = function(_, filetype, buftype)
         local function handleFallbackException(bufnr, err, providerName)
@@ -76,7 +69,7 @@ return {
   {
     "neovim/nvim-lspconfig",
     optional = true,
-    init = function()
+    opts = function(_, opts)
       local keys = require("lazyvim.plugins.lsp.keymaps").get()
       keys[#keys + 1] = {
         "K",
@@ -87,6 +80,7 @@ return {
           end
         end,
       }
+      return opts
     end,
   },
 }

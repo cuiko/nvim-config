@@ -1,49 +1,19 @@
 return {
   {
     "gbprod/substitute.nvim",
-    keys = {
-      {
-        "s",
-        function()
-          require("substitute").operator()
-        end,
-        desc = "substitute (operator)",
-      },
-      {
-        "ss",
-        function()
-          require("substitute").line()
-        end,
-        desc = "substitute (line)",
-      },
-      {
-        "S",
-        function()
-          require("substitute").eol()
-        end,
-        desc = "substitute (end of line)",
-      },
-      {
-        "s",
-        function()
-          require("substitute").visual()
-        end,
-        mode = "x",
-        desc = "substitute (visual)",
-      },
-    },
+    event = "BufRead",
+    opts = {},
+    config = function(_, opts)
+      local substitute = require("substitute")
+      vim.keymap.set("n", "s", substitute.operator, { noremap = true })
+      vim.keymap.set("n", "ss", substitute.line, { noremap = true })
+      vim.keymap.set("n", "S", substitute.eol, { noremap = true })
+      vim.keymap.set("x", "s", substitute.visual, { noremap = true })
+      substitute.setup(opts)
+    end,
   },
   {
     "ggandor/leap.nvim",
-    optional = true,
-    keys = {
-      -- disable `s` keymap for substitute
-      { "s", mode = { "n", "x", "o" }, false },
-      { "S", mode = { "n", "x", "o" }, false },
-      { "gs", mode = { "n", "x", "o" }, false },
-      -- { "s", mode = { "n", "x", "o" }, desc = "Leap forward to" },
-      -- { "S", mode = { "n", "x", "o" }, desc = "Leap backward to" },
-      -- { "gs", mode = { "n", "x", "o" }, desc = "Leap from windows" },
-    },
+    config = true,
   },
 }

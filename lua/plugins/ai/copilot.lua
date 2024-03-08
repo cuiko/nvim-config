@@ -13,7 +13,7 @@ return {
     },
     keys = {
       {
-        "<leader>Xc",
+        "<leader>ac",
         function()
           require("util.toggle").cmp_source("copilot")
         end,

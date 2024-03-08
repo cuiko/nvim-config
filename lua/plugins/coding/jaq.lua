@@ -1,13 +1,6 @@
 -- quick run
 return {
   "is0n/jaq-nvim",
-  keys = {
-    {
-      "<leader>ce",
-      "<cmd>Jaq<cr>",
-      desc = "Execute Code",
-    },
-  },
   opts = {
     cmds = {
       -- Uses vim commands
@@ -77,6 +70,13 @@ return {
         -- Window size
         size = 10,
       },
+    },
+  },
+  keys = {
+    {
+      "<leader>ce",
+      "<cmd>Jaq<cr>",
+      desc = "Execute Code",
     },
   },
 }

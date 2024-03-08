@@ -1,24 +1,6 @@
 -- easy way to inc/dec a value
 return {
   "monaqa/dial.nvim",
-  keys = {
-    {
-      "<C-a>",
-      function()
-        return require("dial.map").inc_normal()
-      end,
-      expr = true,
-      desc = "Increment",
-    },
-    {
-      "<C-x>",
-      function()
-        return require("dial.map").dec_normal()
-      end,
-      expr = true,
-      desc = "Decrement",
-    },
-  },
   config = function()
     local augend = require("dial.augend")
     require("dial.config").augends:register_group({
@@ -40,4 +22,22 @@ return {
       },
     })
   end,
+  keys = {
+    {
+      "<C-a>",
+      function()
+        return require("dial.map").inc_normal()
+      end,
+      expr = true,
+      desc = "Increment",
+    },
+    {
+      "<C-x>",
+      function()
+        return require("dial.map").dec_normal()
+      end,
+      expr = true,
+      desc = "Decrement",
+    },
+  },
 }

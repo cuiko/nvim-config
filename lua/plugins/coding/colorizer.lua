@@ -1,5 +1,6 @@
 return {
   "NvChad/nvim-colorizer.lua",
+  cmd = { "ColorizerToggle" },
   opts = {
     user_default_options = {
       mode = "foreground",
@@ -12,5 +13,4 @@ return {
       desc = "Toggle Colorizer",
     },
   },
-  cmd = { "ColorizerToggle" },
 }

@@ -2,7 +2,7 @@ return {
   {
     "smjonas/inc-rename.nvim",
     cmd = { "IncRename" },
-    opts = {},
+    config = true,
   },
   {
     "folke/noice.nvim",
