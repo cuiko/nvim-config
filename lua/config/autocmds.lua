@@ -78,3 +78,11 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.keymap.set("n", "q", "<cmd>tabclose<cr>", { buffer = true })
   end,
 })
+
+vim.api.nvim_create_autocmd("BufRead", {
+  group = augroup("disable_diagnostic"),
+  pattern = "*/gp/chats/**.md",
+  callback = function()
+    vim.diagnostic.disable(0)
+  end,
+})
