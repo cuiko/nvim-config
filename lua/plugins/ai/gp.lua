@@ -1,7 +1,6 @@
 return {
   {
     "folke/which-key.nvim",
-    optional = true,
     opts = {
       defaults = {
         ["<leader>a"] = { name = "+ai" },
@@ -31,7 +30,7 @@ return {
       -- optional curl parameters (for proxy, etc.)
       -- curl_params = { "--proxy", "http://X.X.X.X:XXXX" },
       -- api endpoint
-      openai_api_endpoint = "https://openai.ehco-relay.cc/v1/chat/completions",
+      openai_api_endpoint = os.getenv("OPENAI_API_ENDPOINT") or "https://api.openai.com/v1/chat/completions",
       -- conceal model parameters in chat
       chat_conceal_model_params = false,
       -- how to display GpChatToggle or GpContext: popup / split / vsplit / tabnew

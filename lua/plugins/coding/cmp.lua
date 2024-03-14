@@ -46,9 +46,7 @@ return {
             symbol_map = icons.kinds,
           }
         end,
-        config = function(_, opts)
-          require("lspkind").init(opts)
-        end,
+        config = function(_, opts) require("lspkind").init(opts) end,
       },
     },
     opts = function()
@@ -57,26 +55,8 @@ return {
       local cmp_window = require("cmp.config.window")
       local lspkind = require("lspkind")
       local compare = require("cmp.config.compare")
-      local copilot_trigger = {
-        ".",
-        ":",
-        "(",
-        "'",
-        '"',
-        "[",
-        ",",
-        "#",
-        "*",
-        "@",
-        "|",
-        "=",
-        "-",
-        "{",
-        "/",
-        "\\",
-        "+",
-        "?",
-        " ",
+      --stylua: ignore
+      local copilot_trigger = { ".", ":", "(", "'", '"', "[", ",", "#", "*", "@", "|", "=", "-", "{", "/", "\\", "+", "?", " ",
         -- "\t",
         -- "\n",
       }
@@ -92,9 +72,7 @@ return {
         },
 
         snippet = {
-          expand = function(args)
-            require("luasnip").lsp_expand(args.body)
-          end,
+          expand = function(args) require("luasnip").lsp_expand(args.body) end,
         },
 
         mapping = cmp.mapping.preset.insert({
@@ -199,22 +177,9 @@ return {
         }),
       })
 
-      vim.api.nvim_create_autocmd("Filetype", {
-        desc = "Setup cmp buffer sql source",
-        pattern = "sql",
-        callback = function()
-          cmp.setup.buffer({
-            sources = {
-              { name = "vim-dadbod-completion" },
-            },
-          })
-        end,
-      })
-
       cmp.setup(opts)
     end,
   },
-
   {
     "L3MON4D3/LuaSnip",
     build = (not jit.os:find("Windows"))
@@ -222,9 +187,7 @@ return {
       or nil,
     dependencies = {
       "rafamadriz/friendly-snippets",
-      config = function()
-        require("luasnip.loaders.from_vscode").lazy_load()
-      end,
+      config = function() require("luasnip.loaders.from_vscode").lazy_load() end,
     },
     opts = {
       history = true,

@@ -69,7 +69,7 @@ return {
   {
     "neovim/nvim-lspconfig",
     optional = true,
-    opts = function(_, opts)
+    opts = function()
       local keys = require("lazyvim.plugins.lsp.keymaps").get()
       keys[#keys + 1] = {
         "K",
@@ -80,7 +80,6 @@ return {
           end
         end,
       }
-      return opts
     end,
   },
 }

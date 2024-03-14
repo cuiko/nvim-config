@@ -2,6 +2,7 @@
 return {
   "hedyhli/outline.nvim",
   cmd = { "Outline", "OutlineOpen" },
+  enabled = false,
   opts = {
     symbols = {
       icons = {

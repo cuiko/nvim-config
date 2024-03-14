@@ -13,10 +13,10 @@ return {
     {
       "<leader>uD",
       function()
-        vim.cmd([[
+        vim.cmd [[
             tabnew
             DBUI
-        ]])
+        ]]
       end,
       desc = "Open DBUI",
     },

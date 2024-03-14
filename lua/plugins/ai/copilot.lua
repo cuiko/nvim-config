@@ -1,7 +1,4 @@
-do
-  return {}
-end
-return {
+return require("util").enabled(false)({
   {
     "zbirenbaum/copilot.lua",
     cmd = "Copilot",
@@ -15,7 +12,7 @@ return {
       {
         "<leader>ac",
         function()
-          require("util.toggle").cmp_source("copilot")
+          require("util").toggle.cmp_source("copilot")
         end,
         desc = "Toggle Copilot",
       },
@@ -59,4 +56,4 @@ return {
       })
     end,
   },
-}
+})

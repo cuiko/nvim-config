@@ -9,7 +9,7 @@ return {
       {
         "<leader>ac",
         function()
-          require("util.toggle").cmp_source("codeium")
+          require("util").toggle.cmp_source("codeium")
         end,
         desc = "Toggle Codeium",
       },

@@ -5,7 +5,7 @@ return {
       "neovim/nvim-lspconfig",
       "nvim-treesitter/nvim-treesitter",
     },
-    event = "BufRead",
+    event = "LazyFile",
     opts = {
       disable_defaults = true,
     },

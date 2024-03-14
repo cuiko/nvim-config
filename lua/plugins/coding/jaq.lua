@@ -7,11 +7,11 @@ return {
       internal = {
         lua = "luafile %",
         vim = "source %",
+        markdown = "Glow %",
       },
 
       -- Uses shell commands
       external = {
-        markdown = "glow %",
         python = "python3 %",
         go = "go run %",
         rust = "cargo run %",

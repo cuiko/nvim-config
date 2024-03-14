@@ -3,8 +3,7 @@
 -- Add any additional keymaps here
 
 local Util = require("lazyvim.util")
-local keymap = require("util.keymap")
-local map = keymap.set
+local map = require("util").keymap.set
 
 local diagnostic_goto = function(next, severity)
   local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
@@ -24,6 +23,9 @@ map({
   { { "n", "x" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true } },
   { { "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true } },
   { { "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true } },
+
+  { "n", "[o", [[<cmd>execute "normal! O"<CR>]], { desc = "Put blank line before cursor" } },
+  { "n", "]o", [[<cmd>execute "normal! o"<CR>]], { desc = "Put blank line after cursor" } },
 
   -- Move Lines
   -- { "n", "<A-j>", "<cmd>m .+1<cr>==", { desc = "Move down" } },
@@ -54,10 +56,10 @@ map({
 -- window
 map({
   -- Move to window using the <ctrl> hjkl keys
-  { "n", "<C-h>", "<C-w>h", { desc = "Go to left window", remap = true } },
-  { "n", "<C-j>", "<C-w>j", { desc = "Go to lower window", remap = true } },
-  { "n", "<C-k>", "<C-w>k", { desc = "Go to upper window", remap = true } },
-  { "n", "<C-l>", "<C-w>l", { desc = "Go to right window", remap = true } },
+  -- { "n", "<C-h>", "<C-w>h", { desc = "Go to left window", remap = true } },
+  -- { "n", "<C-j>", "<C-w>j", { desc = "Go to lower window", remap = true } },
+  -- { "n", "<C-k>", "<C-w>k", { desc = "Go to upper window", remap = true } },
+  -- { "n", "<C-l>", "<C-w>l", { desc = "Go to right window", remap = true } },
 
   -- Resize window using <ctrl> arrow keys
   { "n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" } },
@@ -154,7 +156,6 @@ map({
   { "t", "<C-k>", "<cmd>wincmd k<cr>", { desc = "Go to upper window" } },
   { "t", "<C-l>", "<cmd>wincmd l<cr>", { desc = "Go to right window" } },
   { "t", "<C-/>", "<cmd>close<cr>", { desc = "Hide Terminal" } },
-  { "t", "<c-_>", "<cmd>close<cr>", { desc = "which_key_ignore" } },
 })
 
 -- tabs

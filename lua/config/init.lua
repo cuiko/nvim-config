@@ -8,6 +8,7 @@ local M = {
     },
     misc = {
       dots = "󰇘",
+      pin = "📌",
     },
     dap = {
       Stopped = "󰁕 ",
