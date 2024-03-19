@@ -9,9 +9,7 @@ return {
     keys = function()
       local sc = require("neoscroll")
       local scroll = function(lines, move_cursor, time, easing_function, info)
-        return function()
-          sc.scroll(lines, move_cursor, time, easing_function, info)
-        end
+        return function() sc.scroll(lines, move_cursor, time, easing_function, info) end
       end
 
       return {
@@ -23,27 +21,47 @@ return {
         { "<C-e>", scroll(0.10, false, 100), desc = "Scroll window downward in the buffer" },
         {
           "zt",
-          function()
-            sc.zt(250)
-          end,
+          function() sc.zt(250) end,
         },
         {
           "zz",
-          function()
-            sc.zz(250)
-          end,
+          function() sc.zz(250) end,
         },
         {
           "zb",
-          function()
-            sc.zb(250)
-          end,
+          function() sc.zb(250) end,
         },
       }
     end,
   },
   {
+    "dstein64/nvim-scrollview",
+    event = "VeryLazy",
+    opts = {
+      excluded_filetypes = {
+        "neo-tree",
+        "dashboard",
+        "cmp_docs",
+        "cmp_menu",
+        "noice",
+        "prompt",
+        "TelescopePrompt",
+        "dbui",
+      },
+      current_only = true,
+      winblend_gui = 40,
+      signs_overflow = "right",
+      signs_on_startup = {
+        "diagnostics",
+        "marks",
+        "search",
+      },
+      diagnostics_severities = { vim.diagnostic.severity.ERROR },
+    },
+  },
+  {
     "petertriho/nvim-scrollbar",
+    enabled = false,
     event = "VeryLazy",
     opts = {
       show = true,

@@ -8,9 +8,7 @@ local map = require("util").keymap.set
 local diagnostic_goto = function(next, severity)
   local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
   severity = severity and vim.diagnostic.severity[severity] or nil
-  return function()
-    go({ severity = severity })
-  end
+  return function() go({ severity = severity }) end
 end
 
 -- '<,'>s/map(\(.*\))/{\1},
@@ -18,6 +16,8 @@ end
 
 -- basic
 map({
+  { "i", "<C-p>", "" },
+
   -- better up/down
   { { "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true } },
   { { "n", "x" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true } },
@@ -55,6 +55,22 @@ map({
 
 -- window
 map({
+  {
+    "n",
+    "<C-w>c",
+    function()
+      require("mini.bufremove").delete()
+      local winc = #vim
+        .iter(vim.api.nvim_list_wins())
+        :map(vim.api.nvim_win_get_config)
+        :filter(function(wc) return wc.split end)
+        :totable()
+      if (not vim.g.neotree_opened and winc > 1) or (vim.g.neotree_opened and winc > 2) then
+        pcall(vim.api.nvim_win_close, 0, true)
+      end
+    end,
+    { desc = "Quie a window and close buffer" },
+  },
   -- Move to window using the <ctrl> hjkl keys
   -- { "n", "<C-h>", "<C-w>h", { desc = "Go to left window", remap = true } },
   -- { "n", "<C-j>", "<C-w>j", { desc = "Go to lower window", remap = true } },
@@ -100,18 +116,14 @@ map({
   {
     "n",
     "<leader>uw",
-    function()
-      Util.toggle("wrap")
-    end,
+    function() Util.toggle("wrap") end,
     { desc = "Toggle Word Wrap" },
   },
 
   {
     "n",
     "<leader>ud",
-    function()
-      Util.toggle.diagnostics()
-    end,
+    function() Util.toggle.diagnostics() end,
     { desc = "Toggle Diagnostics" },
   },
 
@@ -141,9 +153,7 @@ map({
   {
     { "n", "v" },
     "<leader>cf",
-    function()
-      Util.format({ force = true })
-    end,
+    function() Util.format({ force = true }) end,
     { desc = "Format" },
   },
 })

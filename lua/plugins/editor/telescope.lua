@@ -13,9 +13,7 @@ return {
       local actions = require("telescope.actions")
       local Util = require("lazyvim.util")
 
-      Util.on_load("telescope.nvim", function()
-        require("telescope").load_extension("live_grep_args")
-      end)
+      Util.on_load("telescope.nvim", function() require("telescope").load_extension("live_grep_args") end)
 
       return {
         defaults = {
@@ -38,12 +36,11 @@ return {
     end,
     keys = {
       -- keyword
+      { "<leader>sP", "<cmd>Telescope builtin<cr>", desc = "Telescope buildin" },
       -- use lga instead of default live grep
       {
         "<leader>sg",
-        function()
-          require("telescope").extensions.live_grep_args.live_grep_args()
-        end,
+        function() require("telescope").extensions.live_grep_args.live_grep_args() end,
         desc = "Grep With Args",
       },
       { "<leader>sG", false },

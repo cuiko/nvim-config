@@ -6,6 +6,13 @@ return {
     dependencies = {
       "kevinhwang91/promise-async",
     },
+    init = function()
+      vim.o.formatoptions = "jcroqlnt"
+      vim.o.foldcolumn = "1"
+      vim.o.foldlevel = 99
+      vim.o.foldlevelstart = 99
+      vim.o.foldenable = true
+    end,
     opts = {
       provider_selector = function(_, filetype, buftype)
         local function handleFallbackException(bufnr, err, providerName)
@@ -20,12 +27,8 @@ return {
           or function(bufnr)
             return require("ufo")
               .getFolds(bufnr, "lsp")
-              :catch(function(err)
-                return handleFallbackException(bufnr, err, "treesitter")
-              end)
-              :catch(function(err)
-                return handleFallbackException(bufnr, err, "indent")
-              end)
+              :catch(function(err) return handleFallbackException(bufnr, err, "treesitter") end)
+              :catch(function(err) return handleFallbackException(bufnr, err, "indent") end)
           end
       end,
     },

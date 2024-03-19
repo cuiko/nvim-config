@@ -155,13 +155,19 @@ return {
     ---@param opts cmp.ConfigSchema
     config = function(_, opts)
       local cmp = require("cmp")
-      for _, source in ipairs(opts.sources) do
-        source.group_index = source.group_index or 1
-      end
 
       cmp.setup.cmdline({ "/", "?" }, {
         mapping = cmp.mapping.preset.cmdline(),
         sources = cmp.config.sources({
+          { name = "buffer" },
+        }, {
+          { name = "path" },
+        }),
+      })
+
+      cmp.setup.filetype({ "NeogitCommitMessage" }, {
+        sources = cmp.config.sources({
+          { name = "luasnip" },
           { name = "buffer" },
         }, {
           { name = "path" },

@@ -5,12 +5,18 @@ return {
     cmd = "Codeium",
     build = ":Codeium Auth",
     opts = {},
+    config = function(_, opts)
+      require("codeium").setup(opts)
+
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = { "gitcommit" },
+        callback = function() end,
+      })
+    end,
     keys = {
       {
         "<leader>ac",
-        function()
-          require("util").toggle.cmp_source("codeium")
-        end,
+        function() require("util").toggle.cmp_source("codeium") end,
         desc = "Toggle Codeium",
       },
     },

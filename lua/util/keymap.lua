@@ -30,4 +30,43 @@ function M.set(keymaps)
   end
 end
 
+local keymap_set = function(entry)
+  local mode = entry.mode or "n"
+  local lhs = entry[1]
+  local rhs = entry[2]
+  local opts = M.opts(entry) ---@type vim.api.keyset.keymap
+
+  opts.silent = opts.silent or true
+
+  if entry.cond ~= nil then
+    local condt = type(entry.cond)
+    if (condt == "boolean" and entry.cond == false) or (condt == "function" and entry.cond() ~= nil) then
+      return
+    end
+  end
+
+  local ok, result = pcall(vim.keymap.set, mode, lhs, rhs, opts)
+  if not ok then
+    vim.notify("not ok ")
+  end
+end
+
+local skip = { mode = true, cond = true }
+
+function M.opts(keys)
+  local opts = {}
+  for k, v in pairs(keys) do
+    if type(k) ~= "number" and not skip[k] then
+      opts[k] = v
+    end
+  end
+  return opts
+end
+
+function M.set_lazylike(keymaps)
+  for _, entry in pairs(keymaps) do
+    keymap_set(entry)
+  end
+end
+
 return M
