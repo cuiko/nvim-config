@@ -17,8 +17,8 @@ return {
       {
         event = "neo_tree_window_after_close",
         handler = function()
-          vim.g.neotree_opened = false
           require("bufresize").resize_close()
+          vim.g.neotree_opened = false
         end,
       },
     },

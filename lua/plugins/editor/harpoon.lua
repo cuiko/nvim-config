@@ -16,6 +16,7 @@ return {
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope.nvim",
     },
+    event = "VeryLazy",
     config = function(_, opts)
       local harpoon = require("harpoon")
       harpoon.setup(opts)
@@ -80,7 +81,10 @@ return {
         },
         {
           "<leader>bc",
-          function() harpoon:list():clear() end,
+          function()
+            harpoon:list():clear()
+            print("Harpoon buffers have been cleared")
+          end,
           desc = "Clear buffers (Harpoon)",
         },
         {

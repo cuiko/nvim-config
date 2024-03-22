@@ -12,17 +12,17 @@ return {
       "hrsh7th/cmp-cmdline",
       "saadparwaiz1/cmp_luasnip",
       "kristijanhusak/vim-dadbod-completion",
-      {
-        "Exafunction/codeium.nvim",
-        cmd = "Codeium",
-        build = ":Codeium Auth",
-        opts = {},
-      },
       -- {
-      --   "zbirenbaum/copilot-cmp",
-      --   dependencies = "zbirenbaum/copilot.lua",
+      --   "Exafunction/codeium.nvim",
+      --   cmd = "Codeium",
+      --   build = ":Codeium Auth",
       --   opts = {},
       -- },
+      {
+        "zbirenbaum/copilot-cmp",
+        dependencies = "zbirenbaum/copilot.lua",
+        opts = {},
+      },
       {
         "onsails/lspkind.nvim",
         opts = function()
@@ -97,18 +97,18 @@ return {
         }),
 
         sources = cmp.config.sources({
-          -- {
-          --   name = "copilot",
-          --   -- keyword_length = 0,
-          --   max_item_count = 3,
-          --   trigger_characters = copilot_trigger,
-          -- },
           {
-            name = "codeium",
+            name = "copilot",
             -- keyword_length = 0,
             max_item_count = 3,
             trigger_characters = copilot_trigger,
           },
+          -- {
+          --   name = "codeium",
+          --   -- keyword_length = 0,
+          --   max_item_count = 3,
+          --   trigger_characters = copilot_trigger,
+          -- },
           { name = "nvim_lsp" },
           { name = "luasnip" },
           { name = "path" },

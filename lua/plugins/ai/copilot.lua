@@ -1,4 +1,53 @@
-return require("util").enabled(false)({
+return require("util").enabled(true)({
+  {
+    "CopilotC-Nvim/CopilotChat.nvim",
+    enabled = false,
+    opts = {
+      show_help = "yes", -- Show help text for CopilotChatInPlace, default: yes
+      debug = false, -- Enable or disable debug mode, the log file will be in ~/.local/state/nvim/CopilotChat.nvim.log
+      disable_extra_info = "no", -- Disable extra information (e.g: system prompt) in the response.
+      language = "English", -- Copilot answer language settings when using default prompts. Default language is English.
+      -- proxy = "http://127.0.0.1:7890", -- Proxies requests via https or socks.
+      -- allow_insecure = true,
+      -- temperature = 0.1,
+    },
+    build = function()
+      vim.notify("Please update the remote plugins by running ':UpdateRemotePlugins', then restart Neovim.")
+    end,
+    event = "VeryLazy",
+    keys = {
+      { "<leader>ccb", ":CopilotChatBuffer ", desc = "CopilotChat - Chat with current buffer" },
+      { "<leader>cce", "<cmd>CopilotChatExplain<cr>", desc = "CopilotChat - Explain code" },
+      { "<leader>cct", "<cmd>CopilotChatTests<cr>", desc = "CopilotChat - Generate tests" },
+      {
+        "<leader>ccT",
+        "<cmd>CopilotChatVsplitToggle<cr>",
+        desc = "CopilotChat - Toggle Vsplit", -- Toggle vertical split
+      },
+      {
+        "<leader>ccv",
+        ":CopilotChatVisual ",
+        mode = "x",
+        desc = "CopilotChat - Open in vertical split",
+      },
+      {
+        "<leader>ccx",
+        ":CopilotChatInPlace<cr>",
+        mode = "x",
+        desc = "CopilotChat - Run in-place code",
+      },
+      {
+        "<leader>ccf",
+        "<cmd>CopilotChatFixDiagnostic<cr>", -- Get a fix for the diagnostic message under the cursor.
+        desc = "CopilotChat - Fix diagnostic",
+      },
+      {
+        "<leader>ccr",
+        "<cmd>CopilotChatReset<cr>", -- Reset chat history and clear buffer.
+        desc = "CopilotChat - Reset chat history and clear buffer",
+      },
+    },
+  },
   {
     "zbirenbaum/copilot.lua",
     cmd = "Copilot",
@@ -11,9 +60,7 @@ return require("util").enabled(false)({
     keys = {
       {
         "<leader>ac",
-        function()
-          require("util").toggle.cmp_source("copilot")
-        end,
+        function() require("util").toggle.cmp_source("copilot") end,
         desc = "Toggle Copilot",
       },
     },

@@ -1,4 +1,4 @@
-return {
+return require("util").enabled(false)({
   {
     "Exafunction/codeium.nvim",
     event = "InsertEnter",
@@ -32,4 +32,4 @@ return {
       )
     end,
   },
-}
+})
