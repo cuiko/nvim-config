@@ -1,13 +1,5 @@
 return {
   {
-    "folke/which-key.nvim",
-    opts = {
-      defaults = {
-        ["<leader>a"] = { name = "+ai" },
-      },
-    },
-  },
-  {
     "robitx/gp.nvim",
     event = {
       "BufRead */gp/chats/**.md",
@@ -16,11 +8,13 @@ return {
       "GpChatToggle",
       "GpChatNew",
       "GpChatFinder",
+      "GpTranslator",
     },
     keys = {
       { "<leader>at", "<cmd>GpChatToggle vsplit<cr>", desc = "Toggle GP Chat" },
       { "<leader>an", "<cmd>GpChatNew vsplit<cr>", desc = "New GP Chat" },
       { "<leader>af", "<cmd>GpChatFinder vsplit<cr>", desc = "Find GP Chat" },
+      { "<leader>aT", "<cmd>GpTranslator<cr>", desc = "GP Translator", mode = { "n", "x" } },
     },
     opts = {
       -- required openai api key (string or table with command and arguments)
@@ -43,9 +37,27 @@ return {
       -- see more hooks example in https://github.com/Robitx/gp.nvim/blob/d90816b2e9185202d72f7b1346b6d33b36350886/lua/gp/config.lua#L286
       hooks = {
         Translator = function(gp, params)
+          -- https://www.reddit.com/r/neovim/comments/oo97pq/comment/h5xiuyn/?utm_source=share&utm_medium=web2x&context=3
+          vim.cmd('noau normal! "vy"')
+          local template = vim.fn.getreg("v")
           local agent = gp.get_command_agent()
           local chat_system_prompt = "You are a Translator, please translate between English and Chinese."
-          gp.cmd.ChatNew(params, agent.model, chat_system_prompt)
+            .. "\nThere are a few points to note:"
+            .. "\n1. If the text contains comment marks such as --, #, //, etc., please ignore these symbols when translating."
+            .. "\n2. If the text is an English word, please provide the English phonetic symbols, "
+            .. "Chinese-English definitions and English-English definitions when translating. "
+            .. "The result format is to display the word, English phonetic symbols, "
+            .. "Chinese-English definitions, and English-English definitions in each line."
+          gp.Prompt(
+            params,
+            -- gp.Target.popup,
+            -- for creating a new horizontal split
+            function(filetype) return { type = 5, filetype = "GpTranslator" } end,
+            nil,
+            agent.model,
+            template,
+            chat_system_prompt
+          )
         end,
       },
       -- default command agents (model + persona)
@@ -110,6 +122,14 @@ return {
             .. "Please AVOID COMMENTARY OUTSIDE OF THE SNIPPET RESPONSE.\n"
             .. "START AND END YOUR ANSWER WITH:\n\n```",
         },
+      },
+    },
+  },
+  {
+    "folke/which-key.nvim",
+    opts = {
+      defaults = {
+        ["<leader>a"] = { name = "+ai" },
       },
     },
   },

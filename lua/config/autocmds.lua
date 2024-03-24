@@ -8,9 +8,10 @@ vim.api.nvim_create_autocmd("FileType", {
   group = augroup("close_with_q"),
   pattern = {
     "Jaq",
+    "GpTranslator",
   },
   callback = function()
-    vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = true })
+    vim.keymap.set({ "n", "x" }, "q", "<cmd>close<cr>", { buffer = true })
     vim.opt.buflisted = false
   end,
 })

@@ -78,10 +78,10 @@ map({
   -- { "n", "<C-l>", "<C-w>l", { desc = "Go to right window", remap = true } },
 
   -- Resize window using <ctrl> arrow keys
-  { "n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" } },
-  { "n", "<C-Down>", "<cmd>resize -2<cr>", { desc = "Decrease window height" } },
-  { "n", "<C-Left>", "<cmd>vertical resize -5<cr>", { desc = "Decrease window width" } },
-  { "n", "<C-Right>", "<cmd>vertical resize +5<cr>", { desc = "Increase window width" } },
+  -- { "n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" } },
+  -- { "n", "<C-Down>", "<cmd>resize -2<cr>", { desc = "Decrease window height" } },
+  -- { "n", "<C-Left>", "<cmd>vertical resize -5<cr>", { desc = "Decrease window width" } },
+  -- { "n", "<C-Right>", "<cmd>vertical resize +5<cr>", { desc = "Increase window width" } },
 
   -- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
   { "n", "n", "'Nn'[v:searchforward].'zv'", { expr = true, desc = "Next search result" } },
