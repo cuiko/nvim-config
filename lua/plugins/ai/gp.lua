@@ -37,9 +37,12 @@ return {
       -- see more hooks example in https://github.com/Robitx/gp.nvim/blob/d90816b2e9185202d72f7b1346b6d33b36350886/lua/gp/config.lua#L286
       hooks = {
         Translator = function(gp, params)
-          -- https://www.reddit.com/r/neovim/comments/oo97pq/comment/h5xiuyn/?utm_source=share&utm_medium=web2x&context=3
-          vim.cmd('noau normal! "vy"')
-          local template = vim.fn.getreg("v")
+          local selection = params.args
+          if selection == "" then
+            -- https://www.reddit.com/r/neovim/comments/oo97pq/comment/h5xiuyn/?utm_source=share&utm_medium=web2x&context=3
+            vim.cmd('noau normal! "vy"')
+            selection = vim.fn.getreg("v")
+          end
           local agent = gp.get_command_agent()
           local chat_system_prompt = "You are a Translator, please translate between English and Chinese."
             .. "\nThere are a few points to note:"
@@ -55,7 +58,7 @@ return {
             function(filetype) return { type = 5, filetype = "GpTranslator" } end,
             nil,
             agent.model,
-            template,
+            selection,
             chat_system_prompt
           )
         end,
