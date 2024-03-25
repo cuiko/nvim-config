@@ -55,9 +55,9 @@ return {
             -- for creating a new horizontal split
             function(filetype) return { type = 5, filetype = "GpTranslator" } end,
             nil,
-            -- gpt-3.5 is more faster than gpt-4
             -- agent.model,
-            { model = "gpt-3.5-turbo", temperature = 1.1, top_p = 1 },
+            -- gpt-3.5 is more faster than gpt-4
+            "gpt-3.5-turbo",
             selection,
             chat_system_prompt
           )
