@@ -5,12 +5,6 @@
 local Util = require("lazyvim.util")
 local map = require("util").keymap.set
 
-local diagnostic_goto = function(next, severity)
-  local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
-  severity = severity and vim.diagnostic.severity[severity] or nil
-  return function() go({ severity = severity }) end
-end
-
 -- '<,'>s/map(\(.*\))/{\1},
 -- map(a, b) -> {a, b},
 
@@ -130,6 +124,12 @@ map({
   -- highlights under cursor
   { "n", "<leader>ui", vim.show_pos, { desc = "Inspect Pos" } },
 })
+
+local diagnostic_goto = function(next, severity)
+  local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
+  severity = severity and vim.diagnostic.severity[severity] or nil
+  return function() go({ severity = severity }) end
+end
 
 -- coding
 map({

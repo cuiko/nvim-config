@@ -3,8 +3,8 @@ local M = {
   -- https://github.com/LazyVim/LazyVim/blob/91126b9896bebcea9a21bce43be4e613e7607164/lua/lazyvim/config/init.lua#L31
   icons = {
     fold = {
-      Expanded = " ",
-      Collapsed = " ",
+      Expanded = "",
+      Collapsed = "",
     },
     misc = {
       dots = "󰇘",
@@ -73,9 +73,7 @@ local M = {
 }
 
 setmetatable(M, {
-  __index = function(t, k)
-    return vim.deepcopy(t)[k]
-  end,
+  __index = function(t, k) return vim.deepcopy(t)[k] end,
 })
 
 return M

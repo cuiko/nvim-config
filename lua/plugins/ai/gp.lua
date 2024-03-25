@@ -47,9 +47,7 @@ return {
           local chat_system_prompt = "You are a Translator, please translate between English and Chinese."
             .. "\nThere are a few points to note:"
             .. "\n1. If the text contains comment marks such as --, #, //, etc., please ignore these symbols when translating."
-            .. "\n2. If the text is an English word, please provide the English phonetic symbols, "
-            .. "Chinese-English definitions and English-English definitions when translating. "
-            .. "The result format is to display the word, English phonetic symbols, "
+            .. "\n2. If the text is only an English word, the result format is to display the word, English phonetic symbols, "
             .. "Chinese-English definitions, and English-English definitions in each line."
           gp.Prompt(
             params,
@@ -57,7 +55,9 @@ return {
             -- for creating a new horizontal split
             function(filetype) return { type = 5, filetype = "GpTranslator" } end,
             nil,
-            agent.model,
+            -- gpt-3.5 is more faster than gpt-4
+            -- agent.model,
+            { model = "gpt-3.5-turbo", temperature = 1.1, top_p = 1 },
             selection,
             chat_system_prompt
           )
@@ -119,7 +119,7 @@ return {
           chat = false,
           command = true,
           -- string with model name or table with model name and parameters
-          model = { model = "gpt-3.5-turbo-1106", temperature = 0.8, top_p = 1 },
+          model = { model = "gpt-3.5-turbo", temperature = 0.8, top_p = 1 },
           -- system prompt (use this to specify the persona/role of the AI)
           system_prompt = "You are an AI working as a code editor.\n\n"
             .. "Please AVOID COMMENTARY OUTSIDE OF THE SNIPPET RESPONSE.\n"

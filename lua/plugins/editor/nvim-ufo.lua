@@ -50,18 +50,21 @@ return {
           "undotree",
         },
         segments = {
-          -- { sign = { name = { "Dap*" }, auto = true }, click = "v:lua.ScSa" },
+          { sign = { name = { "Dap*" }, auto = true }, click = "v:lua.ScSa" },
           { sign = { name = { ".*" }, namespace = { ".*" } }, click = "v:lua.ScSa" },
           { text = { builtin.lnumfunc, " " }, click = "v:lua.ScLa" },
           { sign = { name = { "GitSigns*" }, namespace = { "gitsigns" }, colwidth = 1 }, click = "v:lua.ScSa" },
+          -- It sometimes gets misaligned
           {
             text = {
               function(args)
+                args.fold.width = 1
                 args.fold.close = icons.fold.Collapsed
                 args.fold.open = icons.fold.Expanded
-                args.fold.sep = "  "
+                args.fold.sep = " "
                 return builtin.foldfunc(args)
               end,
+              " ",
             },
             click = "v:lua.ScFa",
           },
