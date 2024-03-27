@@ -51,9 +51,12 @@ return {
         },
         segments = {
           { sign = { name = { "Dap*" }, auto = true }, click = "v:lua.ScSa" },
-          { sign = { name = { ".*" }, namespace = { ".*" } }, click = "v:lua.ScSa" },
-          { text = { builtin.lnumfunc, " " }, click = "v:lua.ScLa" },
-          { sign = { name = { "GitSigns*" }, namespace = { "gitsigns" }, colwidth = 1 }, click = "v:lua.ScSa" },
+          { sign = { name = { ".*" }, namespace = { ".*" }, text = { ".*" } }, click = "v:lua.ScSa" },
+          { text = { builtin.lnumfunc, " " }, condition = { builtin.not_empty }, click = "v:lua.ScLa" },
+          {
+            sign = { name = { "GitSigns*" }, namespace = { "gitsigns" }, colwidth = 1, wrap = true },
+            click = "v:lua.ScSa",
+          },
           -- It sometimes gets misaligned
           {
             text = {
@@ -66,6 +69,7 @@ return {
               end,
               " ",
             },
+            condition = { function() return vim.o.foldcolumn ~= "0" end },
             click = "v:lua.ScFa",
           },
         },
