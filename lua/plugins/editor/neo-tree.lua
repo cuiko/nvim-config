@@ -9,7 +9,9 @@ return {
     event_handlers = {
       {
         event = "neo_tree_window_after_open",
-        handler = function()
+        handler = function(args)
+          -- fix the left of neo-tree displays fold
+          vim.wo[args.winid].foldcolumn = "0"
           vim.g.neotree_opened = true
           require("bufresize").resize_open()
         end,
