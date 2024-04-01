@@ -44,35 +44,39 @@ return {
         desc = "Grep With Args",
       },
       { "<leader>sG", false },
+      -- grep word
       -- { "<leader>sw", false  },
       { "<leader>sW", false },
       -- registers
-      -- { '<leader>s"', false },
+      { '<leader>s"', false },
       -- buffer
-      -- { "<leader>sb", false },
-      -- command
-      -- { "<leader>sa", false },
-      -- { "<leader>sc", false },
-      -- { "<leader>sC", false },
-      -- diagnostics
+      { "<leader>sb", false },
+      -- auto command
+      { "<leader>sa", false },
+      -- command history
+      { "<leader>sc", false },
+      -- commands
+      { "<leader>sC", false },
+      -- document diagnostics
       -- { "<leader>sd", false },
+      -- workspace diagnostics
       -- { "<leader>sD", false },
       -- help
       { "<leader>sh", false },
+      -- man pages
       { "<leader>sM", false },
       -- keymap
-      -- { "<leader>sk", false },
+      { "<leader>sk", false },
       -- heighlight
-      -- { "<leader>sH", false },
+      { "<leader>sH", false },
       -- symbol
       { "<leader>ss", false },
+      -- workspace symbol
       { "<leader>sS", false },
       -- option
-      -- { "<leader>so", false },
+      { "<leader>so", false },
       -- mark
       { "<leader>sm", false },
-      -- {"<leader>st", false},
-      -- {"<leader>sT", false},
     },
   },
 }

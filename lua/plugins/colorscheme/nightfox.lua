@@ -4,8 +4,9 @@ return {
   priority = 1000,
   opts = {
     groups = {
-      all = {
+      nightfox = {
         TreesitterContext = { link = "Folded" },
+        -- WinSeparator = { fg = "palette.bg1" },
       },
     },
   },
