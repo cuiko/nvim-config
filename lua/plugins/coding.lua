@@ -1,4 +1,17 @@
 return {
+  -- autopair
+  {
+    "echasnovski/mini.pairs",
+    enabled = false,
+  },
+  {
+    "altermo/ultimate-autopair.nvim",
+    event = { "InsertEnter", "CmdlineEnter" },
+    branch = "v0.6",
+    opts = {},
+  },
+
+  -- cmp
   {
     "hrsh7th/nvim-cmp",
     event = {
@@ -186,6 +199,8 @@ return {
       cmp.setup(opts)
     end,
   },
+
+  -- snippets
   {
     "L3MON4D3/LuaSnip",
     build = (not jit.os:find("Windows"))
@@ -218,6 +233,274 @@ return {
         function() require("luasnip").jump(-1) end,
         mode = { "i", "s" },
       },
+    },
+  },
+
+  -- comment
+  {
+    "echasnovski/mini.comment",
+    enabled = false,
+  },
+  {
+    "numToStr/Comment.nvim",
+    event = "BufRead",
+    config = function()
+      local ft = require("Comment.ft")
+
+      ft.set("mysql", "--%s")
+      ft.mysql = "--%s"
+
+      require("Comment").setup({
+        pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
+      })
+    end,
+  },
+
+  -- easy way to inc/dec a value
+  {
+    "monaqa/dial.nvim",
+    config = function()
+      local augend = require("dial.augend")
+      require("dial.config").augends:register_group({
+        default = {
+          augend.integer.alias.decimal,
+          augend.integer.alias.hex,
+          augend.date.alias["%Y/%m/%d"],
+          augend.date.alias["%Y-%m-%d"],
+          augend.date.alias["%m/%d"],
+          augend.date.alias["%H:%M"],
+          augend.constant.alias.bool,
+          augend.semver.alias.semver,
+          augend.constant.new({ elements = { "&&", "||" }, word = false, cyclic = true }),
+          augend.constant.new({ elements = { "and", "or" }, word = true, cyclic = true }),
+          -- augend.constant.new({ elements = { "True", "False" }, word = true, cyclic = true }),
+          -- augend.constant.new({ elements = { "enable", "disable" }, word = true, cyclic = true }),
+          -- augend.constant.new({ elements = { "let", "const" }, word = true, cyclic = true }),
+          -- augend.constant.new({ elements = { "asc", "desc" }, word = true, cyclic = true }),
+        },
+      })
+    end,
+    keys = {
+      {
+        "<C-a>",
+        function() return require("dial.map").inc_normal() end,
+        expr = true,
+        desc = "Increment",
+      },
+      {
+        "<C-x>",
+        function() return require("dial.map").dec_normal() end,
+        expr = true,
+        desc = "Decrement",
+      },
+    },
+  },
+
+  -- pretty rename
+  {
+    "smjonas/inc-rename.nvim",
+    cmd = { "IncRename" },
+    config = true,
+  },
+
+  -- quick run
+  {
+    "is0n/jaq-nvim",
+    opts = {
+      cmds = {
+        -- Uses vim commands
+        internal = {
+          lua = "luafile %",
+          vim = "source %",
+          markdown = "Glow %",
+        },
+
+        -- Uses shell commands
+        external = {
+          python = "python3 %",
+          go = "go run %",
+          rust = "cargo run %",
+          sh = "sh %",
+        },
+      },
+
+      behavior = {
+        -- Default type
+        default = "float",
+
+        -- Start in insert mode
+        startinsert = false,
+
+        -- Use `wincmd p` on startup
+        wincmd = false,
+
+        -- Auto-save files
+        autosave = false,
+      },
+
+      ui = {
+        float = {
+          -- See ':h nvim_open_win'
+          border = "none",
+
+          -- See ':h winhl'
+          winhl = "Normal",
+          borderhl = "FloatBorder",
+
+          -- See ':h winblend'
+          winblend = 10,
+
+          -- Num from `0-1` for measurements
+          height = 0.8,
+          width = 0.8,
+          x = 0.5,
+          y = 0.5,
+        },
+
+        terminal = {
+          -- Window position
+          position = "bot",
+
+          -- Window size
+          size = 10,
+
+          -- Disable line numbers
+          line_no = false,
+        },
+
+        quickfix = {
+          -- Window position
+          position = "bot",
+
+          -- Window size
+          size = 10,
+        },
+      },
+    },
+    keys = {
+      {
+        "<leader>ce",
+        "<cmd>Jaq<cr>",
+        desc = "Execute Code",
+      },
+    },
+  },
+
+  -- snip run
+  {
+    "michaelb/sniprun",
+    branch = "master",
+    build = "sh install.sh",
+    opts = {
+      selected_interpreters = {
+        "Go_original",
+        "Rust_original",
+        "JS_TS_bun",
+        "Python3_fifo",
+        "GFM_original",
+      },
+      display = {
+        "NvimNotify",
+      },
+      display_options = {
+        terminal_scrollback = vim.o.scrollback,
+        terminal_signcolumn = false,
+        terminal_position = "horizontal",
+        terminal_height = 10,
+      },
+      interpreter_options = {
+        Go_original = {
+          compiler = "go",
+        },
+        Rust_original = {
+          compiler = "rustc",
+        },
+        JS_TS_bun = {
+          bun_run_opts = "--smol",
+        },
+        Python3_fifo = {
+          interpreter = "python3",
+          venv = {},
+        },
+        GFM_original = {
+          default_filetype = "bash",
+        },
+      },
+    },
+    keys = {
+      {
+        "<leader>cS",
+        "<Plug>SnipRun",
+        mode = { "n", "v" },
+        desc = "Snip Run",
+      },
+    },
+  },
+
+  -- substitute
+  {
+    "gbprod/substitute.nvim",
+    keys = {
+      { "s", function() require("substitute").operator() end },
+      { "ss", function() require("substitute").line() end },
+      { "S", function() require("substitute").eol() end },
+      { "s", function() require("substitute").visual() end, mode = "x" },
+    },
+    opts = {
+      highlight_substituted_text = {
+        enabled = true,
+      },
+    },
+  },
+  {
+    "ggandor/leap.nvim",
+    config = true,
+    keys = false,
+  },
+
+  -- textcase
+  {
+    "johmsalas/text-case.nvim",
+    event = "BufRead",
+    dependencies = { "nvim-telescope/telescope.nvim" },
+    config = function()
+      require("textcase").setup({
+        enabled_methods = {
+          "to_upper_case",
+          "to_lower_case",
+          "to_snake_case",
+          "to_dash_case",
+          -- "to_title_dash_case",
+          "to_constant_case",
+          "to_dot_case",
+          -- "to_phrase_case",
+          "to_camel_case",
+          "to_pascal_case",
+          -- "to_title_case",
+          "to_path_case",
+          -- "to_upper_phrase_case",
+          -- "to_lower_phrase_case",
+        },
+      })
+      require("telescope").load_extension("textcase")
+    end,
+    keys = {
+      "ga", -- Default invocation prefix
+      { "ga.", "<cmd>TextCaseOpenTelescope<CR>", mode = { "n", "x" }, desc = "Telescope" },
+    },
+    cmd = { "TextCaseOpenTelescope" },
+  },
+
+  -- split/join code
+  {
+    "Wansmer/treesj",
+    keys = {
+      { "gJ", function() require("treesj").join() end, desc = "Join lines" },
+      { "gS", function() require("treesj").split() end, desc = "Split lines" },
+    },
+    opts = {
+      use_default_keymaps = false,
+      max_join_length = 240,
     },
   },
 }

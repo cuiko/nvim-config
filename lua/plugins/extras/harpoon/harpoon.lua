@@ -117,6 +117,7 @@ return {
   },
   {
     "akinsho/bufferline.nvim",
+    optional = true,
     keys = {
       { "<leader>bp", false },
       { "<leader>bP", false },
