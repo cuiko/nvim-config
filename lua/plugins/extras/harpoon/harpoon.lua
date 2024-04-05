@@ -56,8 +56,8 @@ return {
             local item = get_by_display(display)
             local buf_name = vim.fn.expand("%:t")
             if not item then
-              -- print(string.format("Append %s to Harpoon", buf_name))
-              harpoon:list():append()
+              -- print(string.format("Add %s to Harpoon", buf_name))
+              harpoon:list():add()
             else
               -- print(string.format("Remove %s from Harpoon", buf_name))
               harpoon:list():remove(item)
