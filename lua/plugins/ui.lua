@@ -150,6 +150,11 @@ return {
           render_limit = 10,
         },
       },
+      notification = {
+        window = {
+          x_padding = 2,
+        },
+      },
     },
   },
 
@@ -161,7 +166,7 @@ return {
         -- lazyvim.plugins.extras.editor.leap mini.surround
         ["gz"] = { name = "+surrounding" },
         -- johmsalas/text-case.nvim
-        ["ga"] = { name = "+text-case" },
+        ["ga"] = { name = "+textcase" },
       },
     },
   },

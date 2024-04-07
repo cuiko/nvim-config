@@ -472,11 +472,7 @@ return {
       },
     },
     opts = function()
-      local actions = require("telescope.actions")
-      local Util = require("lazyvim.util")
-
-      Util.on_load("telescope.nvim", function() require("telescope").load_extension("live_grep_args") end)
-
+      local lga_actions = require("telescope-live-grep-args.actions")
       return {
         defaults = {
           layout_strategy = "horizontal",
@@ -489,9 +485,15 @@ return {
           },
           sorting_strategy = "ascending",
         },
-        mappings = {
-          i = {
-            ["<C-c>"] = actions.close,
+        extensions = {
+          live_grep_args = {
+            auto_quoting = true,
+            mappings = {
+              i = {
+                ["<C-k>"] = lga_actions.quote_prompt(),
+                ["<C-i>"] = lga_actions.quote_prompt({ postfix = " --iglob " }),
+              },
+            },
           },
         },
       }
@@ -503,9 +505,13 @@ return {
       {
         "<leader>sg",
         function() require("telescope").extensions.live_grep_args.live_grep_args() end,
-        desc = "Grep With Args",
+        desc = "Grep With Args (Root Dir)",
       },
-      { "<leader>sG", false },
+      {
+        "<leader>sG",
+        function() require("telescope").extensions.live_grep_args.live_grep_args({ cwd = LazyVim.root.get() }) end,
+        desc = "Grep With Args (cwd)",
+      },
       -- registers
       { '<leader>s"', false },
       -- buffer

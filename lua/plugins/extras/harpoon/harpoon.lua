@@ -94,7 +94,8 @@ return {
             -- tidy list
             for _, item in ipairs(list.items) do
               local display = get_display(item.value)
-              if not Path:new(vim.fn.getcwd()):joinpath(display):exists() then
+              -- relative path or absolute path
+              if not Path:new(vim.fn.getcwd()):joinpath(display):exists() or not Path:new(display):exists() then
                 list:remove(item)
               end
             end
