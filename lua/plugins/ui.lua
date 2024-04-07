@@ -129,6 +129,17 @@ return {
 
   -- progress messages
   {
+    "folke/noice.nvim",
+    optional = true,
+    opts = {
+      lsp = {
+        progress = {
+          enabled = false,
+        },
+      },
+    },
+  },
+  {
     "j-hui/fidget.nvim",
     event = "LspAttach",
     opts = {
