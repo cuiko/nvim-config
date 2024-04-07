@@ -31,7 +31,7 @@ require("lazy").setup({
     { import = "plugins" },
     { import = "plugins.lang" },
     { import = "plugins.lsp" },
-    { import = "plugins.extras.gpt" },
+    { import = "plugins.extras.ai" },
     { import = "plugins.extras.harpoon" },
   },
   defaults = {

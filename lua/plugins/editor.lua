@@ -154,6 +154,19 @@ return {
         diffview = true,
       },
     },
+    config = function(_, opts)
+      require("neogit").setup(opts)
+
+      local cmp = require("cmp")
+      cmp.setup.filetype({ "NeogitCommitMessage" }, {
+        sources = cmp.config.sources({
+          { name = "luasnip" },
+          { name = "buffer" },
+        }, {
+          { name = "path" },
+        }),
+      })
+    end,
     cmd = { "Neogit" },
     keys = {
       { "<leader>gg", "<cmd>Neogit<cr>", desc = "Neogit (root dir)" },
@@ -486,30 +499,23 @@ return {
     keys = {
       -- keyword
       { "<leader>sP", "<cmd>Telescope builtin<cr>", desc = "Telescope buildin" },
-      -- use lga instead of default live grep
+      -- enhance live grep with args
       {
         "<leader>sg",
         function() require("telescope").extensions.live_grep_args.live_grep_args() end,
         desc = "Grep With Args",
       },
       { "<leader>sG", false },
-      -- grep word
-      -- { "<leader>sw", false  },
-      { "<leader>sW", false },
       -- registers
       { '<leader>s"', false },
       -- buffer
       { "<leader>sb", false },
-      -- auto command
+      -- autocmd
       { "<leader>sa", false },
       -- command history
       { "<leader>sc", false },
       -- commands
       { "<leader>sC", false },
-      -- document diagnostics
-      -- { "<leader>sd", false },
-      -- workspace diagnostics
-      -- { "<leader>sD", false },
       -- help
       { "<leader>sh", false },
       -- man pages
@@ -526,6 +532,11 @@ return {
       { "<leader>so", false },
       -- mark
       { "<leader>sm", false },
+      -- recent
+      { "<leader>fr", false },
+      { "<leader>fR", false },
+      -- git files
+      { "<leader>fg", false },
     },
   },
 
@@ -555,12 +566,12 @@ return {
     },
     keys = {
       {
-        "<leader>ft",
+        "<leader>ut",
         "<cmd>ToggleTerm direction=horizontal<cr>",
-        desc = "Terminal (root dir)",
+        desc = "Terminal (horizontal)",
       },
       {
-        "<c-`>",
+        "<leader>uT",
         "<cmd>ToggleTerm direction=float<cr>",
         desc = "Terminal (float)",
       },

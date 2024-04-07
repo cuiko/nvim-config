@@ -178,15 +178,6 @@ return {
         }),
       })
 
-      cmp.setup.filetype({ "NeogitCommitMessage" }, {
-        sources = cmp.config.sources({
-          { name = "luasnip" },
-          { name = "buffer" },
-        }, {
-          { name = "path" },
-        }),
-      })
-
       cmp.setup.cmdline(":", {
         mapping = cmp.mapping.preset.cmdline(),
         sources = cmp.config.sources({

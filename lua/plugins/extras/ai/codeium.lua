@@ -5,14 +5,6 @@ return require("util").enabled(false)({
     cmd = "Codeium",
     build = ":Codeium Auth",
     opts = {},
-    config = function(_, opts)
-      require("codeium").setup(opts)
-
-      vim.api.nvim_create_autocmd("FileType", {
-        pattern = { "gitcommit" },
-        callback = function() end,
-      })
-    end,
     keys = {
       {
         "<leader>ac",
