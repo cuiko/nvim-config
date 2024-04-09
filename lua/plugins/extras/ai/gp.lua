@@ -3,12 +3,6 @@ return {
   event = {
     "BufRead */gp/chats/**.md",
   },
-  cmd = {
-    "GpChatToggle",
-    "GpChatNew",
-    "GpChatFinder",
-    "GpTranslator",
-  },
   keys = {
     { "<leader>at", "<cmd>GpChatToggle vsplit<cr>", desc = "Toggle GP Chat" },
     { "<leader>an", "<cmd>GpChatNew vsplit<cr>", desc = "New GP Chat" },

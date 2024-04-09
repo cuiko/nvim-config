@@ -54,10 +54,7 @@ return {
       { "tpope/vim-dadbod", lazy = true },
       { "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql", "plsql" }, lazy = true },
     },
-    cmd = {
-      "DBUI",
-      "DBUIFindBuffer",
-    },
+    cmd = "DBUI",
     init = function()
       vim.g.db_ui_use_nerd_fonts = 1
 
@@ -132,10 +129,10 @@ return {
       "nvim-lua/plenary.nvim",
       {
         "sindrets/diffview.nvim",
-        cmd = { "DiffviewOpen" },
+        cmd = "DiffviewOpen",
         opts = {
           hooks = {
-            ["view_opened"] = function() vim.keymap.set("n", "q", "<cmd>tabclose<cr>", { silent = true }) end,
+            ["view_opened"] = function() vim.keymap.set("n", "q", "<cmd>DiffviewClose<cr>", { silent = true }) end,
           },
         },
         keys = {
@@ -167,7 +164,7 @@ return {
         }),
       })
     end,
-    cmd = { "Neogit" },
+    cmd = "Neogit",
     keys = {
       { "<leader>gg", "<cmd>Neogit<cr>", desc = "Neogit (root dir)" },
       { "<leader>gG", "<cmd>Neogit cwd=%:p:h<cr>", desc = "Neogit (cwd)" },
@@ -197,6 +194,27 @@ return {
       window = {
         mappings = {
           ["l"] = "open",
+          ["T"] = {
+            function(state)
+              local node = state.tree:get_node()
+              local dir = node.path
+              if node.type ~= "directory" then
+                local Path = require("plenary.path")
+                dir = Path:new(dir):parent().filename
+              end
+              local Terminal = require("toggleterm.terminal").Terminal
+              Terminal:new({
+                direction = "horizontal",
+                dir = dir,
+                on_close = function(term)
+                  if vim.api.nvim_buf_is_loaded(term.bufnr) then
+                    vim.api.nvim_buf_delete(term.bufnr, { force = true })
+                  end
+                end,
+              }):toggle()
+            end,
+            desc = "Open with Terminal",
+          },
         },
       },
       event_handlers = {
@@ -217,9 +235,6 @@ return {
           end,
         },
       },
-    },
-    keys = {
-      { "<leader>be", false },
     },
   },
 
@@ -249,6 +264,13 @@ return {
       }
 
       return {
+        close_fold_kinds_for_ft = {
+          default = {
+            "comment",
+            "imports",
+            -- "region",
+          },
+        },
         provider_selector = function(_, filetype, buftype)
           local function handleFallbackException(bufnr, err, providerName)
             if type(err) == "string" and err:match("UfoFallbackException") then
@@ -318,8 +340,7 @@ return {
   -- code outline sidebar
   {
     "hedyhli/outline.nvim",
-    cmd = { "Outline", "OutlineOpen" },
-    enabled = false,
+    cmd = "Outline",
     opts = {
       symbols = {
         icons = {
@@ -562,7 +583,7 @@ return {
       shading_factor = -10,
       highlights = {
         FloatBorder = {
-          guifg = "SteelBlue",
+          link = "FloatBorder",
         },
       },
       float_opts = {
@@ -587,7 +608,7 @@ return {
   -- undotree
   {
     "mbbill/undotree",
-    cmd = { "UndotreeToggle" },
+    cmd = "UndotreeToggle",
     init = function()
       vim.g.undotree_DiffAutoOpen = 1
       vim.g.undotree_SetFocusWhenToggle = 1

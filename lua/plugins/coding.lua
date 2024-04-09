@@ -25,12 +25,6 @@ return {
       "hrsh7th/cmp-cmdline",
       "saadparwaiz1/cmp_luasnip",
       "kristijanhusak/vim-dadbod-completion",
-      -- {
-      --   "Exafunction/codeium.nvim",
-      --   cmd = "Codeium",
-      --   build = ":Codeium Auth",
-      --   opts = {},
-      -- },
       {
         "zbirenbaum/copilot-cmp",
         dependencies = "zbirenbaum/copilot.lua",
@@ -290,7 +284,7 @@ return {
   -- pretty rename
   {
     "smjonas/inc-rename.nvim",
-    cmd = { "IncRename" },
+    cmd = "IncRename",
     config = true,
   },
 
@@ -479,7 +473,6 @@ return {
       "ga", -- Default invocation prefix
       { "ga.", "<cmd>TextCaseOpenTelescope<CR>", mode = { "n", "x" }, desc = "Telescope" },
     },
-    cmd = { "TextCaseOpenTelescope" },
   },
 
   -- split/join code

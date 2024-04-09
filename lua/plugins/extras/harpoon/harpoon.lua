@@ -88,7 +88,7 @@ return {
           desc = "Clear buffers (Harpoon)",
         },
         {
-          "<leader>be",
+          "<leader>bE",
           function()
             local list = harpoon:list()
             -- tidy list

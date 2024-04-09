@@ -2,7 +2,7 @@ return {
   -- colorizer
   {
     "NvChad/nvim-colorizer.lua",
-    cmd = { "ColorizerToggle" },
+    cmd = "ColorizerToggle",
     opts = {
       user_default_options = {
         mode = "foreground",
@@ -130,8 +130,6 @@ return {
       local integrations = require("nvim-next.integrations")
       local diag = integrations.diagnostic()
       local nqf = integrations.quickfix()
-      local harpoon_prev = function() require("harpoon"):list():prev({ ui_nav_wrap = true }) end
-      local harpoon_next = function() require("harpoon"):list():next({ ui_nav_wrap = true }) end
       local move = require("nvim-next.move")
       local move_fn = function(cmd)
         local fn = cmd
@@ -186,12 +184,10 @@ return {
     config = true,
   },
 
-  -- modify read-only file
+  -- read/write read-only file
   {
     "lambdalisue/suda.vim",
-    cmd = {
-      "SudaWrite",
-      "SudaRead",
-    },
+    event = "VeryLazy",
+    init = function() vim.g.suda_smart_edit = 1 end,
   },
 }
