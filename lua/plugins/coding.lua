@@ -25,8 +25,10 @@ return {
       "hrsh7th/cmp-cmdline",
       "saadparwaiz1/cmp_luasnip",
       "kristijanhusak/vim-dadbod-completion",
+      "lukas-reineke/cmp-under-comparator",
       {
-        "zbirenbaum/copilot-cmp",
+        -- "zbirenbaum/copilot-cmp",
+        "imzhongqi/copilot-cmp", -- chinese truncation https://github.com/zbirenbaum/copilot-cmp/pull/104
         dependencies = "zbirenbaum/copilot.lua",
         opts = {},
       },
@@ -145,11 +147,14 @@ return {
         },
 
         sorting = {
+          priority_weight = 2,
           comparators = {
+            require("copilot_cmp.comparators").prioritize,
             compare.offset,
             compare.exact,
             compare.score,
             compare.recently_used,
+            require("cmp-under-comparator").under,
             compare.locality,
             compare.kind,
             compare.sort_text,
