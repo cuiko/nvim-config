@@ -120,11 +120,9 @@ return {
     "akinsho/bufferline.nvim",
     optional = true,
     keys = {
+      -- https://github.com/LazyVim/LazyVim/blob/97480dc5d2dbb717b45a351e0b04835f138a9094/lua/lazyvim/plugins/ui.lua#L60
       { "<leader>bp", false },
       { "<leader>bP", false },
-      { "[b", false },
-      { "]b", false },
-      -- remap
       { "<leader>bl", false },
       { "<leader>br", false },
       { "<leader>bL", "<Cmd>BufferLineCloseLeft<CR>", desc = "Delete buffers to the left" },

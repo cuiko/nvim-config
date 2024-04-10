@@ -219,20 +219,24 @@ return {
       },
       event_handlers = {
         {
+          event = "neo_tree_window_before_open",
+          handler = function() require("bufresize").block_register() end,
+        },
+        {
           event = "neo_tree_window_after_open",
           handler = function(args)
             -- fix the left of neo-tree displays fold
             vim.wo[args.winid].foldcolumn = "0"
-            vim.g.neotree_opened = true
             require("bufresize").resize_open()
           end,
         },
         {
+          event = "neo_tree_window_before_close",
+          handler = function() require("bufresize").block_register() end,
+        },
+        {
           event = "neo_tree_window_after_close",
-          handler = function()
-            require("bufresize").resize_close()
-            vim.g.neotree_opened = false
-          end,
+          handler = function() require("bufresize").resize_close() end,
         },
       },
     },
@@ -449,8 +453,30 @@ return {
   {
     "mrjones2014/smart-splits.nvim",
     dependencies = {
-      "kwkarlwang/bufresize.nvim",
+      {
+        "kwkarlwang/bufresize.nvim",
+        opts = {
+          register = {
+            trigger_events = { "BufWinEnter", "WinEnter" },
+            keys = {},
+          },
+          resize = {
+            trigger_events = { "VimResized" },
+            increment = 1,
+          },
+        },
+      },
     },
+    opts = function()
+      return {
+        resize_mode = {
+          silent = true,
+          hooks = {
+            on_leave = require("bufresize").register,
+          },
+        },
+      }
+    end,
     keys = function()
       return {
         { "<C-h>", require("smart-splits").move_cursor_left, desc = "Go to the left window" },
@@ -467,16 +493,6 @@ return {
         { "<C-S-j>", require("smart-splits").swap_buf_down, desc = "Swap current with down" },
         { "<C-S-k>", require("smart-splits").swap_buf_up, desc = "Swap current with up" },
         { "<C-S-l>", require("smart-splits").swap_buf_right, desc = "Swap current with right" },
-      }
-    end,
-    opts = function()
-      return {
-        resize_mode = {
-          silent = true,
-          hooks = {
-            on_leave = require("bufresize").register,
-          },
-        },
       }
     end,
   },
@@ -520,6 +536,7 @@ return {
       }
     end,
     keys = {
+      -- https://github.com/LazyVim/LazyVim/blob/97480dc5d2dbb717b45a351e0b04835f138a9094/lua/lazyvim/plugins/editor.lua#L143
       -- keyword
       { "<leader>sP", "<cmd>Telescope builtin<cr>", desc = "Telescope buildin" },
       -- enhance live grep with args
@@ -607,6 +624,16 @@ return {
 
   -- undotree
   {
+    "kevinhwang91/nvim-fundo",
+    lazy = false,
+    dependencies = {
+      "kevinhwang91/promise-async",
+    },
+    build = function() require("fundo").install() end,
+    init = function() vim.o.undofile = true end,
+    opts = {},
+  },
+  {
     "mbbill/undotree",
     cmd = "UndotreeToggle",
     init = function()
@@ -634,5 +661,33 @@ return {
     keys = {
       { "<C-w>z", "<cmd>ZenMode<cr>", desc = "Zen Mode" },
     },
+  },
+
+  -- buffer
+  {
+    "akinsho/bufferline.nvim",
+    keys = function()
+      local move = require("nvim-next.move")
+      local move_fn = function(cmd)
+        local fn = cmd
+        if type(cmd) == "string" then
+          fn = function() vim.cmd(cmd) end
+        end
+        return function() fn() end
+      end
+
+      return {
+        {
+          "[b",
+          move.make_backward_repeatable_move(move_fn("BufferLineMovePrev"), move_fn("BufferLineMoveNext")),
+          desc = "Move Buffer To Previous",
+        },
+        {
+          "]b",
+          move.make_forward_repeatable_move(move_fn("BufferLineMoveNext"), move_fn("BufferLineMovePrev")),
+          desc = "Move Buffer To Next",
+        },
+      }
+    end,
   },
 }
