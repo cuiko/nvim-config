@@ -249,12 +249,6 @@ return {
     dependencies = {
       "kevinhwang91/promise-async",
     },
-    init = function()
-      vim.o.foldcolumn = "1"
-      vim.o.foldlevel = 99
-      vim.o.foldlevelstart = 99
-      vim.o.foldenable = true
-    end,
     opts = function()
       local keys = require("lazyvim.plugins.lsp.keymaps").get()
       keys[#keys + 1] = {
@@ -630,7 +624,6 @@ return {
       "kevinhwang91/promise-async",
     },
     build = function() require("fundo").install() end,
-    init = function() vim.o.undofile = true end,
     opts = {},
   },
   {
