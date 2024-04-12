@@ -63,7 +63,7 @@ function M.opts(keys)
   return opts
 end
 
-function M.set_lazylike(keymaps)
+function M.keys(keymaps)
   for _, entry in pairs(keymaps) do
     keymap_set(entry)
   end

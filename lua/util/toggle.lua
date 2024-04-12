@@ -16,18 +16,18 @@ function M.cmp_source(name)
         -- stylua: ignore
         s.source.is_available = function() return false end
         enabled[name] = false
-        print("Disabled " .. name .. " source")
+        vim.notify("Disabled " .. name .. " source")
       else
         -- stylua: ignore
         s.source.is_available = function() return true end
         enabled[name] = true
-        print("Enabled " .. name .. " source")
+        vim.notify("Enabled " .. name .. " source")
       end
       return
     end
   end
 
-  print("No sources found: " .. name)
+  vim.notify("No sources found: " .. name)
 end
 
 return M

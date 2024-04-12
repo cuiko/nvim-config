@@ -88,7 +88,7 @@ return {
               end
             end
 
-            -- print("DBUI has been closed")
+            -- vim.notifiy("DBUI has been closed")
           end
 
           vim.keymap.set("n", "q", close, { buffer = true })

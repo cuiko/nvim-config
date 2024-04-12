@@ -6,7 +6,7 @@ local function get_display(buf_name) return normalize_path(buf_name, vim.fn.getc
 
 local function get_display_by_bufno(buf_no) return get_display(vim.api.nvim_buf_get_name(buf_no)) end
 
-local function get_by_display(display) return require("harpoon"):list():get_by_display(display) end
+local function get_by_display(display) return require("harpoon"):list():get_by_value(display) end
 
 return {
   {
@@ -17,9 +17,9 @@ return {
       "nvim-telescope/telescope.nvim",
     },
     event = "VeryLazy",
-    config = function(_, opts)
+    config = true,
+    keys = function()
       local harpoon = require("harpoon")
-      harpoon.setup(opts)
 
       local conf = require("telescope.config").values
       local function toggle_telescope(harpoon_files)
@@ -45,7 +45,7 @@ return {
       local list_prev = function() harpoon:list():prev({ ui_nav_wrap = true }) end
       local list_next = function() harpoon:list():next({ ui_nav_wrap = true }) end
 
-      require("util.keymap").set_lazylike({
+      return {
         {
           "<leader>bp",
           function()
@@ -56,10 +56,10 @@ return {
             local item = get_by_display(display)
             local buf_name = vim.fn.expand("%:t")
             if not item then
-              -- print(string.format("Add %s to Harpoon", buf_name))
+              -- vim.notify(string.format("Add %s to Harpoon", buf_name))
               harpoon:list():add()
             else
-              -- print(string.format("Remove %s from Harpoon", buf_name))
+              -- vim.notify(string.format("Remove %s from Harpoon", buf_name))
               harpoon:list():remove(item)
             end
           end,
@@ -83,7 +83,7 @@ return {
           "<leader>bc",
           function()
             harpoon:list():clear()
-            print("Harpoon buffers have been cleared")
+            vim.notify("Harpoon buffers have been cleared")
           end,
           desc = "Clear buffers (Harpoon)",
         },
@@ -113,12 +113,11 @@ return {
           move.make_forward_repeatable_move(list_next, list_prev),
           desc = "Next buffer (Harpoon)",
         },
-      })
+      }
     end,
   },
   {
     "akinsho/bufferline.nvim",
-    optional = true,
     keys = {
       -- https://github.com/LazyVim/LazyVim/blob/97480dc5d2dbb717b45a351e0b04835f138a9094/lua/lazyvim/plugins/ui.lua#L60
       { "<leader>bp", false },
