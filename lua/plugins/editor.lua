@@ -445,21 +445,22 @@ return {
 
   -- smart split
   {
+    "kwkarlwang/bufresize.nvim",
+    opts = {
+      register = {
+        trigger_events = { "BufWinEnter", "WinEnter" },
+        keys = {},
+      },
+      resize = {
+        trigger_events = { "VimResized" },
+        increment = 1,
+      },
+    },
+  },
+  {
     "mrjones2014/smart-splits.nvim",
     dependencies = {
-      {
-        "kwkarlwang/bufresize.nvim",
-        opts = {
-          register = {
-            trigger_events = { "BufWinEnter", "WinEnter" },
-            keys = {},
-          },
-          resize = {
-            trigger_events = { "VimResized" },
-            increment = 1,
-          },
-        },
-      },
+      "kwkarlwang/bufresize.nvim",
     },
     opts = function()
       return {
@@ -478,10 +479,38 @@ return {
         { "<C-k>", require("smart-splits").move_cursor_up, desc = "Go to the up window" },
         { "<C-l>", require("smart-splits").move_cursor_right, desc = "Go to the right window" },
 
-        { "<C-Left>", require("smart-splits").resize_left, desc = "Decrease window width" },
-        { "<C-Down>", require("smart-splits").resize_down, desc = "Decrease window height" },
-        { "<C-Up>", require("smart-splits").resize_up, desc = "Increase window height" },
-        { "<C-Right>", require("smart-splits").resize_right, desc = "Increase window width" },
+        {
+          "<C-Left>",
+          function()
+            require("smart-splits").resize_left()
+            require("bufresize").register()
+          end,
+          desc = "Decrease window width",
+        },
+        {
+          "<C-Down>",
+          function()
+            require("smart-splits").resize_down()
+            require("bufresize").register()
+          end,
+          desc = "Decrease window height",
+        },
+        {
+          "<C-Up>",
+          function()
+            require("smart-splits").resize_up()
+            require("bufresize").register()
+          end,
+          desc = "Increase window height",
+        },
+        {
+          "<C-Right>",
+          function()
+            require("smart-splits").resize_right()
+            require("bufresize").register()
+          end,
+          desc = "Increase window width",
+        },
 
         { "<C-S-h>", require("smart-splits").swap_buf_left, desc = "Swap current with left" },
         { "<C-S-j>", require("smart-splits").swap_buf_down, desc = "Swap current with down" },
