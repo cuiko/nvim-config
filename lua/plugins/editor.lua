@@ -690,23 +690,21 @@ return {
     "akinsho/bufferline.nvim",
     keys = function()
       local move = require("nvim-next.move")
+      local forward = move.make_forward_repeatable_move
+      local backward = move.make_backward_repeatable_move
       local move_fn = function(cmd)
-        local fn = cmd
-        if type(cmd) == "string" then
-          fn = function() vim.cmd(cmd) end
-        end
-        return function() fn() end
+        return function() vim.cmd(cmd) end
       end
 
       return {
         {
           "[b",
-          move.make_backward_repeatable_move(move_fn("BufferLineMovePrev"), move_fn("BufferLineMoveNext")),
+          backward(move_fn("BufferLineMovePrev"), move_fn("BufferLineMoveNext")),
           desc = "Move Buffer To Previous",
         },
         {
           "]b",
-          move.make_forward_repeatable_move(move_fn("BufferLineMoveNext"), move_fn("BufferLineMovePrev")),
+          forward(move_fn("BufferLineMoveNext"), move_fn("BufferLineMovePrev")),
           desc = "Move Buffer To Next",
         },
       }

@@ -41,6 +41,8 @@ return {
       end
 
       local move = require("nvim-next.move")
+      local forward = move.make_forward_repeatable_move
+      local backward = move.make_backward_repeatable_move
 
       local list_prev = function() harpoon:list():prev({ ui_nav_wrap = true }) end
       local list_next = function() harpoon:list():next({ ui_nav_wrap = true }) end
@@ -105,12 +107,12 @@ return {
         },
         {
           "<leader>bh",
-          move.make_backward_repeatable_move(list_prev, list_next),
+          backward(list_prev, list_next),
           desc = "Prev buffer (Harpoon)",
         },
         {
           "<leader>bl",
-          move.make_forward_repeatable_move(list_next, list_prev),
+          forward(list_next, list_prev),
           desc = "Next buffer (Harpoon)",
         },
       }

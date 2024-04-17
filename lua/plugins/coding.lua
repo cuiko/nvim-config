@@ -265,7 +265,7 @@ return {
           augend.constant.new({ elements = { "and", "or" }, word = true, cyclic = true }),
           -- augend.constant.new({ elements = { "True", "False" }, word = true, cyclic = true }),
           -- augend.constant.new({ elements = { "enable", "disable" }, word = true, cyclic = true }),
-          -- augend.constant.new({ elements = { "let", "const" }, word = true, cyclic = true }),
+          augend.constant.new({ elements = { "let", "const" }, word = true, cyclic = true }),
           -- augend.constant.new({ elements = { "asc", "desc" }, word = true, cyclic = true }),
         },
       })
