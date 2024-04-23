@@ -245,7 +245,8 @@ return {
   -- fold
   {
     "kevinhwang91/nvim-ufo",
-    event = "BufRead",
+    -- event = "BufRead",
+    event = "VeryLazy",
     dependencies = {
       "kevinhwang91/promise-async",
     },
@@ -264,7 +265,7 @@ return {
       return {
         close_fold_kinds_for_ft = {
           default = {
-            "comment",
+            -- "comment",
             "imports",
             -- "region",
           },
@@ -308,7 +309,7 @@ return {
           "undotree",
         },
         segments = {
-          { sign = { name = { "Dap*" }, auto = true }, click = "v:lua.ScSa" },
+          -- { sign = { name = { "Dap*" }, auto = true }, click = "v:lua.ScSa" },
           { sign = { name = { ".*" }, namespace = { ".*" }, text = { ".*" } }, click = "v:lua.ScSa" },
           { text = { builtin.lnumfunc, " " }, condition = { builtin.not_empty }, click = "v:lua.ScLa" },
           {
@@ -327,7 +328,6 @@ return {
               end,
               " ",
             },
-            condition = { function() return vim.o.foldcolumn ~= "0" end },
             click = "v:lua.ScFa",
           },
         },
@@ -385,34 +385,61 @@ return {
   -- scroll
   {
     "karb94/neoscroll.nvim",
+    pin = true,
+    commit = "c48f15b", -- newest version has bug, `direction cannot be zero`
     opts = {
+      -- hide_cursor = false,
       easing_function = "quadratic",
       mappings = {},
     },
     keys = function()
-      local sc = require("neoscroll")
       local scroll = function(lines, move_cursor, time, easing_function, info)
-        return function() sc.scroll(lines, move_cursor, time, easing_function, info) end
+        return function() require("neoscroll").scroll(lines(), move_cursor, time, easing_function, info) end
       end
 
       return {
-        { "<C-u>", scroll(-vim.wo.scroll, true, 100), desc = "Scroll Up" },
-        { "<C-d>", scroll(vim.wo.scroll, true, 100), desc = "Scroll Down" },
-        { "<C-b>", scroll(-vim.fn.winheight(0), true, 120), desc = "Scroll Forward" },
-        { "<C-f>", scroll(vim.fn.winheight(0), true, 120), desc = "Scroll Forward" },
-        { "<C-y>", scroll(-0.10, false, 100), desc = "Scroll window upward in the buffer" },
-        { "<C-e>", scroll(0.10, false, 100), desc = "Scroll window downward in the buffer" },
+        {
+          "<C-u>",
+          scroll(function() return -vim.wo.scroll end, true, 80),
+          desc = "Scroll Up",
+        },
+        {
+          "<C-d>",
+          scroll(function() return vim.wo.scroll end, true, 80),
+          desc = "Scroll Down",
+        },
+        {
+          "<C-b>",
+          scroll(function() return -vim.fn.winheight(0) + 1 end, true, 100),
+          desc = "Scroll Forward",
+        },
+        {
+          "<C-f>",
+          scroll(function() return vim.fn.winheight(0) - 1 end, true, 100),
+          desc = "Scroll Forward",
+        },
+
+        {
+          "<C-y>",
+          scroll(function() return -0.10 end, false, 100),
+          desc = "Scroll window upward in the buffer",
+        },
+        {
+          "<C-e>",
+          scroll(function() return 0.10 end, false, 100),
+          desc = "Scroll window downward in the buffer",
+        },
         {
           "zt",
-          function() sc.zt(250) end,
+          function() require("neoscroll").zt(250) end,
         },
         {
           "zz",
-          function() sc.zz(250) end,
+          function() require("neoscroll").zz(250) end,
         },
         {
           "zb",
-          function() sc.zb(250) end,
+          function() require("neoscroll").zb(250) end,
         },
       }
     end,

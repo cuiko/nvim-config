@@ -126,6 +126,7 @@ return {
       { "<leader>bP", false },
       { "<leader>bl", false },
       { "<leader>br", false },
+      { "<leader>bo", "<Cmd>BufferLineCloseOthers<CR>", desc = "Delete Other Buffers" },
       { "<leader>bL", "<Cmd>BufferLineCloseLeft<CR>", desc = "Delete buffers to the left" },
       { "<leader>bR", "<Cmd>BufferLineCloseRight<CR>", desc = "Delete buffers to the right" },
     },

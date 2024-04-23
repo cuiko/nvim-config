@@ -8,13 +8,11 @@ local M = {}
 ---@param enabled boolean
 ---@return function(config: table) -> table
 function M.enabled(enabled)
-  if not enabled then
-    return function(_)
-      return {}
-    end
-  end
   return function(config)
-    return config
+    if enabled then
+      return config
+    end
+    return {}
   end
 end
 

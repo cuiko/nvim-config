@@ -1,6 +1,7 @@
 return {
   "robitx/gp.nvim",
   event = {
+    "VeryLazy",
     "BufRead */gp/chats/**.md",
   },
   keys = {
@@ -11,13 +12,13 @@ return {
   },
   opts = {
     -- required openai api key (string or table with command and arguments)
-    openai_api_key = os.getenv("OPENAI_API_KEY"),
+    openai_api_key = os.getenv "OPENAI_API_KEY",
     -- chat topic model (string with model name or table with model name and parameters)
     chat_topic_gen_model = "gpt-3.5-turbo",
     -- optional curl parameters (for proxy, etc.)
     -- curl_params = { "--proxy", "http://X.X.X.X:XXXX" },
     -- api endpoint
-    openai_api_endpoint = os.getenv("OPENAI_API_ENDPOINT") or "https://api.openai.com/v1/chat/completions",
+    openai_api_endpoint = os.getenv "OPENAI_API_ENDPOINT" or "https://api.openai.com/v1/chat/completions",
     -- conceal model parameters in chat
     chat_conceal_model_params = false,
     -- how to display GpChatToggle or GpContext: popup / split / vsplit / tabnew
@@ -27,14 +28,15 @@ return {
     -- border can be "single", "double", "rounded", "solid", "shadow", "none"
     style_chat_finder_border = "rounded",
     style_popup_border = "rounded",
+    style_popup_max_width = 100,
     -- see more hooks example in https://github.com/Robitx/gp.nvim/blob/d90816b2e9185202d72f7b1346b6d33b36350886/lua/gp/config.lua#L286
     hooks = {
       Translator = function(gp, params)
         local selection = params.args
         if selection == "" then
           -- https://www.reddit.com/r/neovim/comments/oo97pq/comment/h5xiuyn/?utm_source=share&utm_medium=web2x&context=3
-          vim.cmd('noau normal! "vy"')
-          selection = vim.fn.getreg("v")
+          vim.cmd 'noau normal! "vy"'
+          selection = vim.fn.getreg "v"
         end
         local agent = gp.get_command_agent()
         local chat_system_prompt = "You are a Translator, please translate between English and Chinese."
@@ -44,9 +46,16 @@ return {
           .. "Chinese-English definitions, and English-English definitions in each line."
         gp.Prompt(
           params,
-          -- gp.Target.popup,
+          gp.Target.popup,
           -- for creating a new horizontal split
-          function(filetype) return { type = 5, filetype = "GpTranslator" } end,
+          -- function(filetype)
+          --   vim.api.nvim_create_autocmd("FileType", {
+          --     pattern = "GpTranslator",
+          --     once = true,
+          --     callback = function() vim.keymap.set({ "n", "x" }, "q", "<cmd>close<cr>", { buffer = true }) end,
+          --   })
+          --   return { type = 5, filetype = "GpTranslator" }
+          -- end,
           nil,
           -- agent.model,
           -- gpt-3.5 is more faster than gpt-4

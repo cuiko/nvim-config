@@ -5,18 +5,14 @@
 local function augroup(name) return vim.api.nvim_create_augroup(os.getenv("USER") .. "_" .. name, { clear = true }) end
 
 vim.api.nvim_create_autocmd("FileType", {
-  group = augroup("close_with_q"),
+  group = augroup("markdown_setting"),
   pattern = {
-    "Jaq",
-    "GpTranslator",
+    "markdown",
   },
-  callback = function()
-    vim.keymap.set({ "n", "x" }, "q", "<cmd>close<cr>", { buffer = true })
-    vim.opt.buflisted = false
-  end,
+  callback = function() vim.opt_local.spell = false end,
 })
 
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "markdown" },
-  callback = function() vim.opt_local.spell = false end,
+vim.api.nvim_create_autocmd("TermOpen", {
+  group = augroup("terminal_setting"),
+  command = "setlocal nonumber norelativenumber foldcolumn=1",
 })
