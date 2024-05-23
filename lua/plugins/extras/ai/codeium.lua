@@ -1,4 +1,4 @@
-return require("util").enabled(true) {
+return require("util").enabled(true)({
   {
     "Exafunction/codeium.nvim",
     dependencies = {
@@ -12,7 +12,7 @@ return require("util").enabled(true) {
     keys = {
       {
         "<leader>ac",
-        function() require("util").toggle.cmp_source "codeium" end,
+        function() require("util").toggle.cmp_source("codeium") end,
         desc = "Toggle Codeium",
       },
     },
@@ -28,4 +28,4 @@ return require("util").enabled(true) {
       )
     end,
   },
-}
+})

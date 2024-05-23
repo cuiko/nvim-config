@@ -13,16 +13,16 @@ function M.cmp_source(name)
   for _, s in ipairs(require("cmp").core.sources) do
     if s.name == name then
       if enabled[name] == nil or enabled[name] then
-        -- stylua: ignore
-        s.source.is_available = function() return false end
         enabled[name] = false
         vim.notify("Disabled " .. name .. " source")
       else
-        -- stylua: ignore
-        s.source.is_available = function() return true end
         enabled[name] = true
         vim.notify("Enabled " .. name .. " source")
       end
+
+      local is_available = s.source.is_available
+      s.source.is_available = function(self) return enabled[name] and is_available(self) end
+
       return
     end
   end

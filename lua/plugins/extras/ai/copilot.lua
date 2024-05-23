@@ -1,4 +1,4 @@
-return require("util").enabled(false) {
+return require("util").enabled(false)({
   {
     "CopilotC-Nvim/CopilotChat.nvim",
     enabled = false,
@@ -11,7 +11,7 @@ return require("util").enabled(false) {
       -- allow_insecure = true,
       -- temperature = 0.1,
     },
-    build = function() vim.notify "Please update the remote plugins by running ':UpdateRemotePlugins', then restart Neovim." end,
+    build = function() vim.notify("Please update the remote plugins by running ':UpdateRemotePlugins', then restart Neovim.") end,
     event = "VeryLazy",
     keys = {
       { "<leader>ccb", ":CopilotChatBuffer ", desc = "CopilotChat - Chat with current buffer" },
@@ -58,7 +58,7 @@ return require("util").enabled(false) {
     keys = {
       {
         "<leader>ac",
-        function() require("util").toggle.cmp_source "copilot" end,
+        function() require("util").toggle.cmp_source("copilot") end,
         desc = "Toggle Copilot",
       },
     },
@@ -67,13 +67,13 @@ return require("util").enabled(false) {
     "nvim-lualine/lualine.nvim",
     optional = true,
     opts = function(_, opts)
-      local Util = require "lazyvim.util"
+      local Util = require("lazyvim.util")
       local icons = require("config").icons
       local colors = {
-        [""] = Util.ui.fg "Special",
-        ["Normal"] = Util.ui.fg "Special",
-        ["Warning"] = Util.ui.fg "DiagnosticError",
-        ["InProgress"] = Util.ui.fg "DiagnosticWarn",
+        [""] = Util.ui.fg("Special"),
+        ["Normal"] = Util.ui.fg("Special"),
+        ["Warning"] = Util.ui.fg("DiagnosticError"),
+        ["InProgress"] = Util.ui.fg("DiagnosticWarn"),
       }
       table.insert(opts.sections.lualine_x, 2, {
         function()
@@ -101,4 +101,4 @@ return require("util").enabled(false) {
       })
     end,
   },
-}
+})

@@ -60,10 +60,10 @@ return {
     },
     opts = function()
       vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
-      local cmp = require "cmp"
-      local cmp_window = require "cmp.config.window"
-      local lspkind = require "lspkind"
-      local compare = require "cmp.config.compare"
+      local cmp = require("cmp")
+      local cmp_window = require("cmp.config.window")
+      local lspkind = require("lspkind")
+      local compare = require("cmp.config.compare")
       --stylua: ignore
       local copilot_trigger = { ".", ":", "(", "'", '"', "[", ",", "#", "*", "@", "|", "=", "-", "{", "/", "\\", "+", "?", " ",
         -- "\t",
@@ -84,11 +84,11 @@ return {
           expand = function(args) require("luasnip").lsp_expand(args.body) end,
         },
 
-        mapping = cmp.mapping.preset.insert {
-          ["<C-j>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Select },
-          ["<C-k>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Select },
-          ["<C-n>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert },
-          ["<C-p>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert },
+        mapping = cmp.mapping.preset.insert({
+          ["<C-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+          ["<C-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+          ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+          ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
 
           ["<C-b>"] = cmp.mapping.scroll_docs(-4),
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
@@ -96,14 +96,14 @@ return {
           ["<C-Space>"] = cmp.mapping.complete(),
           ["<C-e>"] = cmp.mapping.abort(),
 
-          ["<CR>"] = cmp.mapping.confirm { select = true }, -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-          ["<Tab>"] = cmp.mapping.confirm { behavior = cmp.ConfirmBehavior.Insert, select = true },
-          ["<S-CR>"] = cmp.mapping.confirm { behavior = cmp.ConfirmBehavior.Replace, select = true }, -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+          ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+          ["<Tab>"] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = true }),
+          ["<S-CR>"] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
           ["<C-CR>"] = function(fallback)
             cmp.abort()
             fallback()
           end,
-        },
+        }),
 
         sources = cmp.config.sources({
           -- {
@@ -128,7 +128,7 @@ return {
         formatting = {
           expandable_indicator = true,
           fields = { "kind", "abbr", "menu" },
-          format = lspkind.cmp_format {
+          format = lspkind.cmp_format({
             mode = "symbol",
             maxwidth = 30,
             ellipsis_char = "...", -- 
@@ -137,7 +137,7 @@ return {
               -- vim_item.menu = "[" .. string.upper(entry.source.name) .. "]"
               return vim_item
             end,
-          },
+          }),
         },
 
         experimental = {
@@ -166,7 +166,7 @@ return {
     end,
     ---@param opts cmp.ConfigSchema
     config = function(_, opts)
-      local cmp = require "cmp"
+      local cmp = require("cmp")
 
       cmp.setup.cmdline({ "/", "?" }, {
         mapping = cmp.mapping.preset.cmdline(),
@@ -193,7 +193,7 @@ return {
   -- snippets
   {
     "L3MON4D3/LuaSnip",
-    build = (not jit.os:find "Windows")
+    build = (not jit.os:find("Windows"))
         and "echo 'NOTE: jsregexp is optional, so not a big deal if it fails to build'; make install_jsregexp"
       or nil,
     dependencies = {
@@ -235,14 +235,12 @@ return {
     "numToStr/Comment.nvim",
     event = "BufRead",
     config = function()
-      local ft = require "Comment.ft"
+      local ft = require("Comment.ft")
 
-      ft.set("mysql", "--%s")
-      ft.mysql = "--%s"
+      -- for dbui
+      ft.set("mysql", "-- %s")
 
-      require("Comment").setup {
-        pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
-      }
+      require("Comment").setup()
     end,
   },
 
@@ -250,8 +248,8 @@ return {
   {
     "monaqa/dial.nvim",
     config = function()
-      local augend = require "dial.augend"
-      require("dial.config").augends:register_group {
+      local augend = require("dial.augend")
+      require("dial.config").augends:register_group({
         default = {
           augend.integer.alias.decimal,
           augend.integer.alias.hex,
@@ -261,14 +259,14 @@ return {
           augend.date.alias["%H:%M"],
           augend.constant.alias.bool,
           augend.semver.alias.semver,
-          augend.constant.new { elements = { "&&", "||" }, word = false, cyclic = true },
-          augend.constant.new { elements = { "and", "or" }, word = true, cyclic = true },
+          augend.constant.new({ elements = { "&&", "||" }, word = false, cyclic = true }),
+          augend.constant.new({ elements = { "and", "or" }, word = true, cyclic = true }),
           -- augend.constant.new({ elements = { "True", "False" }, word = true, cyclic = true }),
           -- augend.constant.new({ elements = { "enable", "disable" }, word = true, cyclic = true }),
-          augend.constant.new { elements = { "let", "const" }, word = true, cyclic = true },
+          augend.constant.new({ elements = { "let", "const" }, word = true, cyclic = true }),
           -- augend.constant.new({ elements = { "asc", "desc" }, word = true, cyclic = true }),
         },
-      }
+      })
     end,
     keys = {
       {
@@ -377,7 +375,7 @@ return {
       },
     },
     config = function(_, opts)
-      local j = require "jaq-nvim"
+      local j = require("jaq-nvim")
 
       local fn = j.Jaq
 

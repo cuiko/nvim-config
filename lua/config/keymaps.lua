@@ -2,14 +2,14 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 
-local Util = require "lazyvim.util"
+local Util = require("lazyvim.util")
 local map = require("util").keymap.set
 
 -- '<,'>s/map(\(.*\))/{\1},
 -- map(a, b) -> {a, b},
 
 -- basic
-map {
+map({
   { "i", "<C-p>", "" },
 
   -- better up/down
@@ -45,10 +45,10 @@ map {
     "<cmd>qa<cr>",
     { desc = "Quit all" },
   },
-}
+})
 
 -- window
-map {
+map({
   {
     "n",
     "<C-w>c",
@@ -93,16 +93,17 @@ map {
   -- better indent
   { "v", "<", "<gv" },
   { "v", ">", ">gv" },
-}
+})
 
 -- buffers
-map {
+map({
   { "n", "<S-h>", "<cmd>bprevious<cr>", { desc = "Prev buffer" } },
   { "n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next buffer" } },
-}
+  { "n", "<leader>bd", LazyVim.ui.bufremove, { desc = "Delete buffer" } },
+})
 
 -- ui
-map {
+map({
   -- Clear search, diff update and redraw
   -- (taken from runtime/lua/_editr.lua)
   {
@@ -115,7 +116,7 @@ map {
   {
     "n",
     "<leader>uw",
-    function() Util.toggle "wrap" end,
+    function() Util.toggle("wrap") end,
     { desc = "Toggle Word Wrap" },
   },
 
@@ -128,16 +129,16 @@ map {
 
   -- highlights under cursor
   { "n", "<leader>ui", vim.show_pos, { desc = "Inspect Pos" } },
-}
+})
 
 local diagnostic_goto = function(next, severity)
   local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
   severity = severity and vim.diagnostic.severity[severity] or nil
-  return function() go { severity = severity } end
+  return function() go({ severity = severity }) end
 end
 
 -- coding
-map {
+map({
   -- Open lists
   { "n", "<leader>xl", "<cmd>lopen<cr>", { desc = "Location List" } },
   { "n", "<leader>xq", "<cmd>copen<cr>", { desc = "Quickfix List" } },
@@ -158,28 +159,28 @@ map {
   {
     { "n", "v" },
     "<leader>cf",
-    function() Util.format { force = true } end,
+    function() Util.format({ force = true }) end,
     { desc = "Format" },
   },
-}
+})
 
 -- git
-map {
+map({
   { "n", "<leader>gb", LazyVim.lazygit.blame_line, { desc = "Git Blame Line" } },
-}
+})
 
 -- terminal
-map {
+map({
   { "t", "<esc><esc>", "<c-\\><c-n>", { desc = "Enter Normal Mode" } },
   { "t", "<C-h>", "<cmd>wincmd h<cr>", { desc = "Go to left window" } },
   { "t", "<C-j>", "<cmd>wincmd j<cr>", { desc = "Go to lower window" } },
   { "t", "<C-k>", "<cmd>wincmd k<cr>", { desc = "Go to upper window" } },
   { "t", "<C-l>", "<cmd>wincmd l<cr>", { desc = "Go to right window" } },
   { "t", "<C-/>", "<cmd>close<cr>", { desc = "Hide Terminal" } },
-}
+})
 
 -- tabs
-map {
+map({
   {
     "n",
     "<leader><tab><tab>",
@@ -189,4 +190,4 @@ map {
   { "n", "<leader><tab>d", "<cmd>tabclose<cr>", { desc = "Close Tab" } },
   { "n", "<leader><tab>]", "<cmd>tabnext<cr>", { desc = "Next Tab" } },
   { "n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" } },
-}
+})

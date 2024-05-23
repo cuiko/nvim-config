@@ -12,13 +12,13 @@ return {
   },
   opts = {
     -- required openai api key (string or table with command and arguments)
-    openai_api_key = os.getenv "OPENAI_API_KEY",
+    openai_api_key = os.getenv("OPENAI_API_KEY"),
     -- chat topic model (string with model name or table with model name and parameters)
     chat_topic_gen_model = "gpt-3.5-turbo",
     -- optional curl parameters (for proxy, etc.)
     -- curl_params = { "--proxy", "http://X.X.X.X:XXXX" },
     -- api endpoint
-    openai_api_endpoint = os.getenv "OPENAI_API_ENDPOINT" or "https://api.openai.com/v1/chat/completions",
+    openai_api_endpoint = os.getenv("OPENAI_API_ENDPOINT") or "https://api.openai.com/v1/chat/completions",
     -- conceal model parameters in chat
     chat_conceal_model_params = false,
     -- how to display GpChatToggle or GpContext: popup / split / vsplit / tabnew
@@ -35,13 +35,13 @@ return {
         local selection = params.args
         if selection == "" then
           -- https://www.reddit.com/r/neovim/comments/oo97pq/comment/h5xiuyn/?utm_source=share&utm_medium=web2x&context=3
-          vim.cmd 'noau normal! "vy"'
-          selection = vim.fn.getreg "v"
+          vim.cmd('noau normal! "vy"')
+          selection = vim.fn.getreg("v")
         end
         local agent = gp.get_command_agent()
         local chat_system_prompt = "You are a Translator, please translate between English and Chinese."
           .. "\nThere are a few points to note:"
-          .. "\n1. If the text contains comment marks such as --, #, //, etc., please ignore these symbols when translating."
+          .. "\n1. If the text contains comment marks such as -- or # or // or /// etc., please ignore these symbols when translating."
           .. "\n2. If the text is only an English word, the result format is to display the word, English phonetic symbols, "
           .. "Chinese-English definitions, and English-English definitions in each line."
         gp.Prompt(
@@ -57,9 +57,9 @@ return {
           --   return { type = 5, filetype = "GpTranslator" }
           -- end,
           nil,
-          -- agent.model,
+          agent.model,
           -- gpt-3.5 is more faster than gpt-4
-          "gpt-3.5-turbo",
+          -- "gpt-3.5-turbo",
           selection,
           chat_system_prompt
         )
