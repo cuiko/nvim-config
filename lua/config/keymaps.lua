@@ -53,7 +53,8 @@ map({
     "n",
     "<C-w>c",
     function()
-      require("mini.bufremove").delete()
+      -- require("mini.bufremove").delete()
+      LazyVim.ui.bufremove()
       local wins = vim
         .iter(vim.api.nvim_list_wins())
         :map(function(id) return { id = id, config = vim.api.nvim_win_get_config(id) } end)

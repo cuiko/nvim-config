@@ -129,6 +129,8 @@ return {
       { "<leader>bo", "<Cmd>BufferLineCloseOthers<CR>", desc = "Delete Other Buffers" },
       { "<leader>bL", "<Cmd>BufferLineCloseLeft<CR>", desc = "Delete buffers to the left" },
       { "<leader>bR", "<Cmd>BufferLineCloseRight<CR>", desc = "Delete buffers to the right" },
+      { "<S-h>", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer" },
+      { "<S-l>", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer" },
     },
   },
   {
