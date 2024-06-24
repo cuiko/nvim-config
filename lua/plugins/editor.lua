@@ -1,52 +1,4 @@
 return {
-  -- action preview
-  {
-    "aznhe21/actions-preview.nvim",
-    event = "BufRead",
-    opts = {
-      telescope = {
-        sorting_strategy = "ascending",
-        layout_strategy = "vertical",
-        layout_config = {
-          width = 0.8,
-          height = 0.9,
-          prompt_position = "top",
-          preview_cutoff = 20,
-          preview_height = function(_, _, max_lines) return max_lines - 12 end,
-        },
-      },
-    },
-    config = function(_, opts)
-      local ap = require("actions-preview")
-      ap.setup(opts)
-
-      -- overlay default keymaps
-      local keys = require("lazyvim.plugins.lsp.keymaps").get()
-      keys[#keys + 1] = {
-        "<leader>ca",
-        ap.code_actions,
-        desc = "Code Action",
-        mode = { "n", "v" },
-        has = "codeAction",
-      }
-      keys[#keys + 1] = {
-        "<leader>cA",
-        function()
-          ap.code_actions({
-            context = {
-              only = {
-                "source",
-              },
-              diagnostics = {},
-            },
-          })
-        end,
-        desc = "Source Action",
-        has = "codeAction",
-      }
-    end,
-  },
-
   -- database ui integration
   {
     "kristijanhusak/vim-dadbod-ui",
@@ -143,11 +95,11 @@ return {
           },
         },
       },
-      "nvim-telescope/telescope.nvim",
+      "ibhagwan/fzf-lua",
     },
     opts = {
       integrations = {
-        telescope = true,
+        fzf_lua = true,
         diffview = true,
       },
     },
@@ -174,9 +126,6 @@ return {
   -- IDE-like breadcrumb nav
   {
     "Bekaboo/dropbar.nvim",
-    dependencies = {
-      "nvim-telescope/telescope-fzf-native.nvim",
-    },
     event = "BufRead",
   },
 
@@ -455,7 +404,6 @@ return {
         "cmp_menu",
         "noice",
         "prompt",
-        "TelescopePrompt",
         "dbui",
       },
       current_only = true,
@@ -545,93 +493,6 @@ return {
         { "<C-S-l>", require("smart-splits").swap_buf_right, desc = "Swap current with right" },
       }
     end,
-  },
-
-  -- telescope
-  {
-    "nvim-telescope/telescope.nvim",
-    dependencies = {
-      {
-        "nvim-telescope/telescope-live-grep-args.nvim",
-        -- This will not install any breaking changes.
-        -- For major updates, this must be adjusted manually.
-        version = "^1.0.0",
-      },
-    },
-    opts = function()
-      local lga_actions = require("telescope-live-grep-args.actions")
-      return {
-        defaults = {
-          layout_strategy = "horizontal",
-          layout_config = {
-            horizontal = {
-              prompt_position = "top",
-              preview_width = 0.58,
-              width = 0.8,
-            },
-          },
-          sorting_strategy = "ascending",
-        },
-        extensions = {
-          live_grep_args = {
-            auto_quoting = true,
-            mappings = {
-              i = {
-                ["<C-k>"] = lga_actions.quote_prompt(),
-                ["<C-i>"] = lga_actions.quote_prompt({ postfix = " --iglob " }),
-              },
-            },
-          },
-        },
-      }
-    end,
-    keys = {
-      -- https://github.com/LazyVim/LazyVim/blob/97480dc5d2dbb717b45a351e0b04835f138a9094/lua/lazyvim/plugins/editor.lua#L143
-      -- keyword
-      { "<leader>sP", "<cmd>Telescope builtin<cr>", desc = "Telescope buildin" },
-      -- enhance live grep with args
-      {
-        "<leader>sg",
-        function() require("telescope").extensions.live_grep_args.live_grep_args() end,
-        desc = "Grep With Args (Root Dir)",
-      },
-      {
-        "<leader>sG",
-        function() require("telescope").extensions.live_grep_args.live_grep_args({ cwd = LazyVim.root.get() }) end,
-        desc = "Grep With Args (cwd)",
-      },
-      -- registers
-      { '<leader>s"', false },
-      -- buffer
-      { "<leader>sb", false },
-      -- autocmd
-      { "<leader>sa", false },
-      -- command history
-      { "<leader>sc", false },
-      -- commands
-      { "<leader>sC", false },
-      -- help
-      { "<leader>sh", false },
-      -- man pages
-      { "<leader>sM", false },
-      -- keymap
-      { "<leader>sk", false },
-      -- heighlight
-      { "<leader>sH", false },
-      -- symbol
-      { "<leader>ss", false },
-      -- workspace symbol
-      { "<leader>sS", false },
-      -- option
-      { "<leader>so", false },
-      -- mark
-      { "<leader>sm", false },
-      -- recent
-      { "<leader>fr", false },
-      { "<leader>fR", false },
-      -- git files
-      { "<leader>fg", false },
-    },
   },
 
   -- terminal
