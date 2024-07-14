@@ -25,14 +25,14 @@ return {
 
       require("which-key").register({
         ["<leader>cx"] = {
-          name = "+go",
+          name = "go",
           t = {
-            name = "+tag",
+            name = "tag",
             a = { function() vim.api.nvim_feedkeys(":GoAddTag ", "n", false) end, "Add Tag" },
             r = { function() vim.api.nvim_feedkeys(":GoRmTag ", "n", false) end, "Remove Tag" },
           },
           s = {
-            name = "+struct",
+            name = "struct",
             f = { "<cmd>GoFillStruct<cr>", "Fill Struct" },
             i = { function() vim.api.nvim_feedkeys(":GoImpl ", "n", false) end, "Implement Struct" },
           },

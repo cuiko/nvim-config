@@ -11,14 +11,16 @@ return {
     { "<leader>aT", "<cmd>GpTranslator<cr>", desc = "GP Translator", mode = { "n", "x" } },
   },
   opts = {
-    -- required openai api key (string or table with command and arguments)
-    openai_api_key = os.getenv("OPENAI_API_KEY"),
+    providers = {
+      openai = {
+        endpoint = os.getenv("OPENAI_API_ENDPOINT") or "https://api.openai.com/v1/chat/completions",
+        secret = os.getenv("OPENAI_API_KEY") or "<OPENAI_API_KEY>",
+      },
+    },
     -- chat topic model (string with model name or table with model name and parameters)
     chat_topic_gen_model = "gpt-3.5-turbo",
     -- optional curl parameters (for proxy, etc.)
     -- curl_params = { "--proxy", "http://X.X.X.X:XXXX" },
-    -- api endpoint
-    openai_api_endpoint = os.getenv("OPENAI_API_ENDPOINT") or "https://api.openai.com/v1/chat/completions",
     -- conceal model parameters in chat
     chat_conceal_model_params = false,
     -- how to display GpChatToggle or GpContext: popup / split / vsplit / tabnew
@@ -41,7 +43,7 @@ return {
         local agent = gp.get_command_agent()
         local chat_system_prompt = "You are a Translator, please translate between English and Chinese."
           .. "\nThere are a few points to note:"
-          .. "\n1. If the text contains comment marks such as -- or # or // or /// etc., please ignore these symbols when translating."
+          .. "\n1. If the text contains code comments such as -- , # , // or /* */ etc., please ignore these symbols when translating."
           .. "\n2. If the text is only an English word, the result format is to display the word, English phonetic symbols, "
           .. "Chinese-English definitions, and English-English definitions in each line."
         gp.Prompt(

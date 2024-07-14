@@ -309,7 +309,6 @@ return {
         internal = {
           lua = "luafile %",
           vim = "source %",
-          markdown = "Glow %",
         },
 
         -- Uses shell commands

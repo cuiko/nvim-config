@@ -18,11 +18,7 @@ return {
     },
   },
   {
-    "ellisonleao/glow.nvim",
-    cmd = "Glow",
-    opts = {
-      border = "none",
-      width = 120,
-    },
+    "OXY2DEV/markview.nvim",
+    ft = "markdown",
   },
 }
