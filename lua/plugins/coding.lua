@@ -238,7 +238,7 @@ return {
       local ft = require("Comment.ft")
 
       -- for dbui
-      ft.set("mysql", "-- %s")
+      ft.set("mysql", "--%s")
 
       require("Comment").setup()
     end,

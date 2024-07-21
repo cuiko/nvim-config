@@ -16,3 +16,8 @@ vim.api.nvim_create_autocmd("TermOpen", {
   group = augroup("terminal_setting"),
   command = "setlocal nonumber norelativenumber foldcolumn=1",
 })
+
+vim.api.nvim_create_autocmd("BufRead", {
+  pattern = "Caddyfile",
+  callback = function() vim.bo.commentstring = "#%s" end,
+})
