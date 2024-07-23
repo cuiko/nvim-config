@@ -1,3 +1,5 @@
+local icons = require("config").icons
+
 return {
   {
     "ray-x/go.nvim",
@@ -5,6 +7,12 @@ return {
       "neovim/nvim-lspconfig",
       "nvim-treesitter/nvim-treesitter",
     },
+    enabled = function()
+      vim.fn.system("go version")
+      return vim.v.shell_error == 0 and true or false
+    end,
+    ft = { "go", "gomod" },
+    build = ':lua require("go.install").update_all_sync()',
     opts = {
       -- minimum config
       disable_defaults = true, -- disable functions that not needed
@@ -23,23 +31,15 @@ return {
     config = function(_, opts)
       require("go").setup(opts)
 
-      require("which-key").register({
-        ["<leader>cx"] = {
-          name = "go",
-          t = {
-            name = "tag",
-            a = { function() vim.api.nvim_feedkeys(":GoAddTag ", "n", false) end, "Add Tag" },
-            r = { function() vim.api.nvim_feedkeys(":GoRmTag ", "n", false) end, "Remove Tag" },
-          },
-          s = {
-            name = "struct",
-            f = { "<cmd>GoFillStruct<cr>", "Fill Struct" },
-            i = { function() vim.api.nvim_feedkeys(":GoImpl ", "n", false) end, "Implement Struct" },
-          },
-        },
+      require("which-key").add({
+        { "<leader>cx", group = "go", icon = icons.kinds.Event },
+        { "<leader>cxt", group = "tag" },
+        { "<leader>cxta", function() vim.api.nvim_feedkeys(":GoAddTag ", "n", false) end, desc = "Add Tag" },
+        { "<leader>cxtr", function() vim.api.nvim_feedkeys(":GoRmTag ", "n", false) end, desc = "Remove Tag" },
+        { "<leader>cxs", group = "struct" },
+        { "<leader>cxsf", "<cmd>GoFillStruct<cr>", desc = "Fill Struct" },
+        { "<leader>cxsi", function() vim.api.nvim_feedkeys(":GoImpl ", "n", false) end, desc = "Implement Struct" },
       })
     end,
-    ft = { "go", "gomod" },
-    build = ':lua require("go.install").update_all_sync()',
   },
 }

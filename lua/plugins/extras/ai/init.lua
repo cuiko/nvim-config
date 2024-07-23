@@ -1,10 +1,12 @@
+local icons = require("config").icons
+
 return {
   {
     "folke/which-key.nvim",
-    opts = {
-      spec = {
-        { "<leader>a", group = "ai" },
-      },
-    },
+    opts = function()
+      require("which-key").add({
+        { "<leader>a", group = "ai", icon = icons.kinds.Codeium },
+      })
+    end,
   },
 }

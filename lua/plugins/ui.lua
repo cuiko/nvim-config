@@ -157,15 +157,4 @@ return {
       },
     },
   },
-
-  -- which key
-  {
-    "folke/which-key.nvim",
-    opts = {
-      spec = {
-        -- lazyvim.plugins.extras.editor.leap mini.surround
-        { "gz", group = "surrounding" },
-      },
-    },
-  },
 }

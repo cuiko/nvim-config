@@ -5,11 +5,11 @@
 local M = {}
 
 --- enable a set of plugins
----@param enabled boolean
+---@param enabled boolean|fun():boolean
 ---@return function(config: table) -> table
 function M.enabled(enabled)
   return function(config)
-    if enabled then
+    if type(enabled) == "function" and enabled() or enabled then
       return config
     end
     return {}
