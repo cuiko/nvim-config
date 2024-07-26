@@ -41,30 +41,13 @@ return {
           selection = vim.fn.getreg("v")
         end
         local agent = gp.get_command_agent()
-        local chat_system_prompt = "You are a Translator, please translate between English and Chinese."
+        local chat_system_prompt = "You are a Translator, please translate the following text between English and Chinese."
           .. "\nThere are a few points to note:"
           .. "\n1. If the text contains code comments such as -- , # , // or /* */ etc., please ignore these symbols when translating."
           .. "\n2. If the text is only an English word, the result format is to display the word, English phonetic symbols, "
-          .. "Chinese-English definitions, and English-English definitions in each line."
-        gp.Prompt(
-          params,
-          gp.Target.popup,
-          -- for creating a new horizontal split
-          -- function(filetype)
-          --   vim.api.nvim_create_autocmd("FileType", {
-          --     pattern = "GpTranslator",
-          --     once = true,
-          --     callback = function() vim.keymap.set({ "n", "x" }, "q", "<cmd>close<cr>", { buffer = true }) end,
-          --   })
-          --   return { type = 5, filetype = "GpTranslator" }
-          -- end,
-          nil,
-          agent.model,
-          -- gpt-3.5 is more faster than gpt-4
-          -- "gpt-3.5-turbo",
-          selection,
-          chat_system_prompt
-        )
+          .. "Chinese-English definitions, and English-English definitions in each line.\n\n"
+          .. selection
+        gp.Prompt(params, gp.Target.popup, agent, chat_system_prompt)
       end,
     },
     -- default command agents (model + persona)
