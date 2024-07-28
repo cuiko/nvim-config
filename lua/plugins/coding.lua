@@ -27,8 +27,7 @@ return {
       "kristijanhusak/vim-dadbod-completion",
       "lukas-reineke/cmp-under-comparator",
       -- {
-      --   -- "zbirenbaum/copilot-cmp",
-      --   "imzhongqi/copilot-cmp", -- chinese truncation https://github.com/zbirenbaum/copilot-cmp/pull/104
+      --   "zbirenbaum/copilot-cmp",
       --   dependencies = "zbirenbaum/copilot.lua",
       --   opts = {},
       -- },
@@ -108,13 +107,16 @@ return {
         sources = cmp.config.sources({
           -- {
           --   name = "copilot",
-          --   -- keyword_length = 0,
+          --   max_item_count = 3,
+          --   trigger_characters = copilot_trigger,
+          -- },
+          -- {
+          --   name = "codeium",
           --   max_item_count = 3,
           --   trigger_characters = copilot_trigger,
           -- },
           {
-            name = "codeium",
-            -- keyword_length = 0,
+            name = "cody",
             max_item_count = 3,
             trigger_characters = copilot_trigger,
           },
