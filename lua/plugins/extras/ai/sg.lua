@@ -1,4 +1,4 @@
-return {
+return require("util").enabled(false)({
   {
     "sourcegraph/sg.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
@@ -6,4 +6,4 @@ return {
     build = ":SourcegraphLogin",
     opts = {},
   },
-}
+})
