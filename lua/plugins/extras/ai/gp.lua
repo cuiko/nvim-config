@@ -18,7 +18,7 @@ return {
       },
     },
     -- chat topic model (string with model name or table with model name and parameters)
-    chat_topic_gen_model = "gpt-3.5-turbo",
+    chat_topic_gen_model = "gpt-4o-mini",
     -- optional curl parameters (for proxy, etc.)
     -- curl_params = { "--proxy", "http://X.X.X.X:XXXX" },
     -- conceal model parameters in chat
@@ -40,7 +40,7 @@ return {
           vim.cmd('noau normal! "vy"')
           selection = vim.fn.getreg("v")
         end
-        local agent = gp.get_command_agent()
+        local agent = gp.get_command_agent("CodeGPT4oMini")
         local chat_system_prompt = "You are a Translator, please translate the following text between English and Chinese."
           .. "\nThere are a few points to note:"
           .. "\n1. If the text contains code comments such as -- , # , // or /* */ etc., please ignore these symbols when translating."
@@ -57,28 +57,11 @@ return {
     -- agents = {  { name = "ChatGPT4" }, ... },
     agents = {
       {
-        name = "ChatGPT4",
+        name = "ChatGPT4o",
         chat = true,
         command = false,
         -- string with model name or table with model name and parameters
         model = { model = "gpt-4o", temperature = 1.1, top_p = 1 },
-        -- system prompt (use this to specify the persona/role of the AI)
-        system_prompt = "You are a general AI assistant.\n\n"
-          .. "The user provided the additional info about how they would like you to respond:\n\n"
-          .. "- If you're unsure don't guess and say you don't know instead.\n"
-          .. "- Ask question if you need clarification to provide better answer.\n"
-          .. "- Think deeply and carefully from first principles step by step.\n"
-          .. "- Zoom out first to see the big picture and then zoom in to details.\n"
-          .. "- Use Socratic method to improve your thinking and coding skills.\n"
-          .. "- Don't elide any code from your output if the answer requires coding.\n"
-          .. "- Take a deep breath; You've got this!\n",
-      },
-      {
-        name = "ChatGPT3-5",
-        chat = true,
-        command = false,
-        -- string with model name or table with model name and parameters
-        model = { model = "gpt-3.5-turbo", temperature = 1.1, top_p = 1 },
         -- system prompt (use this to specify the persona/role of the AI)
         system_prompt = "You are a general AI assistant.\n\n"
           .. "The user provided the additional info about how they would like you to respond:\n\n"
@@ -102,11 +85,11 @@ return {
           .. "START AND END YOUR ANSWER WITH:\n\n```",
       },
       {
-        name = "CodeGPT3-5",
+        name = "CodeGPT4oMini",
         chat = false,
         command = true,
         -- string with model name or table with model name and parameters
-        model = { model = "gpt-3.5-turbo", temperature = 0.8, top_p = 1 },
+        model = { model = "gpt-4o-mini", temperature = 0.8, top_p = 1 },
         -- system prompt (use this to specify the persona/role of the AI)
         system_prompt = "You are an AI working as a code editor.\n\n"
           .. "Please AVOID COMMENTARY OUTSIDE OF THE SNIPPET RESPONSE.\n"
