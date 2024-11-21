@@ -16,7 +16,7 @@ require("lazy").setup({
     { import = "plugins.coding" },
     { import = "plugins.colorscheme" },
     { import = "plugins.editor" },
-    { import = "plugins.extras.ai" },
+    -- { import = "plugins.extras.ai" },
     { import = "plugins.extras.harpoon" },
     { import = "plugins.lang" },
     { import = "plugins.ui" },
