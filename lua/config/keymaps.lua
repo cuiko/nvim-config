@@ -53,8 +53,7 @@ map({
     "n",
     "<C-w>c",
     function()
-      -- require("mini.bufremove").delete()
-      LazyVim.ui.bufremove()
+      Snacks.bufdelete()
       local wins = vim
         .iter(vim.api.nvim_list_wins())
         :map(function(id) return { id = id, config = vim.api.nvim_win_get_config(id) } end)
@@ -100,7 +99,7 @@ map({
 map({
   { "n", "<S-h>", "<cmd>bprevious<cr>", { desc = "Prev buffer" } },
   { "n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next buffer" } },
-  { "n", "<leader>bd", LazyVim.ui.bufremove, { desc = "Delete buffer" } },
+  { "n", "<leader>bd", function() Snacks.bufdelete() end, { desc = "Delete buffer" } },
 })
 
 -- ui
@@ -167,7 +166,7 @@ map({
 
 -- git
 map({
-  { "n", "<leader>gb", LazyVim.lazygit.blame_line, { desc = "Git Blame Line" } },
+  { "n", "<leader>gb", Snacks.git.blame_line, { desc = "Git Blame Line" } },
 })
 
 -- terminal
