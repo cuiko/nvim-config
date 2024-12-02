@@ -16,9 +16,18 @@ require("lazy").setup({
     { import = "plugins.coding" },
     { import = "plugins.colorscheme" },
     { import = "plugins.editor" },
-    -- { import = "plugins.extras.ai" },
+    { import = "plugins.extras.ai.gp" },
     { import = "plugins.extras.harpoon" },
-    { import = "plugins.lang" },
+    { import = "plugins.extras.vscode", enabled = vim.g.vscode },
+    {
+      import = "plugins.lang.go",
+      enabled = function()
+        vim.fn.system("go version")
+        return vim.v.shell_error == 0 and true or false
+      end,
+    },
+    { import = "plugins.lang.markdown" },
+    { import = "plugins.lsp" },
     { import = "plugins.ui" },
     { import = "plugins.util" },
   },

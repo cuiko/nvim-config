@@ -1,4 +1,4 @@
-return require("util").enabled(false)({
+return {
   {
     "CopilotC-Nvim/CopilotChat.nvim",
     enabled = false,
@@ -101,4 +101,4 @@ return require("util").enabled(false)({
       })
     end,
   },
-})
+}

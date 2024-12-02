@@ -1,4 +1,4 @@
-return require("util").enabled(false)({
+return {
   {
     "Exafunction/codeium.nvim",
     dependencies = {
@@ -28,4 +28,4 @@ return require("util").enabled(false)({
       )
     end,
   },
-})
+}

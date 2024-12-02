@@ -7,10 +7,6 @@ return {
       "neovim/nvim-lspconfig",
       "nvim-treesitter/nvim-treesitter",
     },
-    enabled = function()
-      vim.fn.system("go version")
-      return vim.v.shell_error == 0 and true or false
-    end,
     ft = { "go", "gomod" },
     build = ':lua require("go.install").update_all_sync()',
     opts = {
