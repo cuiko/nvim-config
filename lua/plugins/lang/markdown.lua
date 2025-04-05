@@ -1,18 +1,13 @@
 return {
   {
     -- config in LazyExtras
-    "MeanderingProgrammer/markdown.nvim",
-    enabled = true,
+    -- https://github.com/LazyVim/LazyVim/blob/ec5981dfb1222c3bf246d9bcaa713d5cfa486fbd/lua/lazyvim/plugins/extras/lang/markdown.lua
+    "MeanderingProgrammer/render-markdown.nvim",
     opts = {
       code = {
         left_pad = 2,
       },
     },
-  },
-  {
-    "OXY2DEV/markview.nvim",
-    enabled = false,
-    ft = "markdown",
   },
   {
     "mfussenegger/nvim-lint",

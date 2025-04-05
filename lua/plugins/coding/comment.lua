@@ -6,6 +6,7 @@ return {
   },
   {
     "numToStr/Comment.nvim",
+    vscode = true,
     event = "BufRead",
     config = function()
       local ft = require("Comment.ft")

@@ -110,26 +110,26 @@ return {
       }
     end,
   },
-  {
-    "akinsho/bufferline.nvim",
-    keys = {
-      -- https://github.com/LazyVim/LazyVim/blob/97480dc5d2dbb717b45a351e0b04835f138a9094/lua/lazyvim/plugins/ui.lua#L60
-      { "<leader>bp", false },
-      { "<leader>bP", false },
-      { "<leader>bl", false },
-      { "<leader>br", false },
-      { "<leader>bo", "<Cmd>BufferLineCloseOthers<CR>", desc = "Delete Other Buffers" },
-      { "<leader>bL", "<Cmd>BufferLineCloseLeft<CR>", desc = "Delete buffers to the left" },
-      { "<leader>bR", "<Cmd>BufferLineCloseRight<CR>", desc = "Delete buffers to the right" },
-      { "<S-h>", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer" },
-      { "<S-l>", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer" },
-    },
-  },
+  -- {
+  --   "akinsho/bufferline.nvim",
+  --   keys = {
+  --     -- https://github.com/LazyVim/LazyVim/blob/97480dc5d2dbb717b45a351e0b04835f138a9094/lua/lazyvim/plugins/ui.lua#L60
+  --     { "<leader>bp", false },
+  --     { "<leader>bP", false },
+  --     { "<leader>bl", false },
+  --     { "<leader>br", false },
+  --     { "<leader>bo", "<Cmd>BufferLineCloseOthers<CR>", desc = "Delete Other Buffers" },
+  --     { "<leader>bL", "<Cmd>BufferLineCloseLeft<CR>", desc = "Delete buffers to the left" },
+  --     { "<leader>bR", "<Cmd>BufferLineCloseRight<CR>", desc = "Delete buffers to the right" },
+  --     { "<S-h>", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer" },
+  --     { "<S-l>", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer" },
+  --   },
+  -- },
   {
     "nvim-lualine/lualine.nvim",
     optional = true,
     opts = function(_, opts)
-      local Util = require("lazyvim.util")
+      local Snacks = require("snacks")
       local icons = require("config").icons
       table.insert(opts.sections.lualine_c, 5, {
         function() return icons.misc.pin end,
@@ -140,7 +140,9 @@ return {
           )
           return get_by_display(display) ~= nil
         end,
-        color = Util.ui.fg("DiagnosticError"),
+        color = {
+          fg = Snacks.util.color("DiagnosticError"),
+        },
       })
     end,
   },

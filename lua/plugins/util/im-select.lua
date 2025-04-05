@@ -2,7 +2,8 @@ return {
   -- smart im
   {
     "keaising/im-select.nvim",
-    event = "InsertEnter",
+    vscode = true,
+    event = "VeryLazy",
     enabled = function()
       vim.fn.system("im-select")
       return vim.v.shell_error == 0 and true or false

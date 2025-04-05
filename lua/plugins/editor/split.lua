@@ -68,10 +68,10 @@ return {
           desc = "Increase window width",
         },
 
-        { "<C-S-h>", require("smart-splits").swap_buf_left, desc = "Swap current with left" },
-        { "<C-S-j>", require("smart-splits").swap_buf_down, desc = "Swap current with down" },
-        { "<C-S-k>", require("smart-splits").swap_buf_up, desc = "Swap current with up" },
-        { "<C-S-l>", require("smart-splits").swap_buf_right, desc = "Swap current with right" },
+        { "<M-h>", require("smart-splits").swap_buf_left, desc = "Swap current with left" },
+        { "<M-j>", require("smart-splits").swap_buf_down, desc = "Swap current with down" },
+        { "<M-k>", require("smart-splits").swap_buf_up, desc = "Swap current with up" },
+        { "<M-l>", require("smart-splits").swap_buf_right, desc = "Swap current with right" },
       }
     end,
   },

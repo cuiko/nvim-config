@@ -1,5 +1,5 @@
 return {
-  -- quick run
+  -- quickly run
   {
     "is0n/jaq-nvim",
     init = function()
