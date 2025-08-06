@@ -2,22 +2,13 @@
 -- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
 -- Add any additional options here
 
-vim.g.root_spec = { "lsp", { ".git", "lua", "README.md", "Cargo.toml", "Makefile", "src" }, "cwd" }
+vim.opt.confirm = false
 
--- ufo
-vim.o.foldcolumn = "1"
-vim.o.foldlevel = 99
-vim.o.foldlevelstart = 99
-vim.o.foldenable = true
-vim.o.list = false
-vim.opt.fillchars = {
-  foldopen = "",
-  foldclose = "",
-  fold = " ",
-  foldsep = " ",
-  diff = "╱",
-  eob = " ",
-}
+vim.g.root_spec = { "lsp", { ".git", "lua", "README.md", "Cargo.toml", "Makefile", "src" }, "cwd" }
 
 -- undotree
 vim.o.undofile = true
+
+-- avante
+-- 视图只能通过全局状态栏完全折叠
+vim.opt.laststatus = 3

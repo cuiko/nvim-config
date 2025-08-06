@@ -14,7 +14,7 @@ return {
     opts = {
       providers = {
         openai = {
-          endpoint = os.getenv("OPENAI_API_ENDPOINT") or "https://api.openai.com/v1/chat/completions",
+          endpoint = os.getenv("OPENAI_API_ENDPOINT") .. "/v1/chat/completions", -- https://api.openai.com/v1/chat/completions
           secret = os.getenv("OPENAI_API_KEY") or "<OPENAI_API_KEY>",
         },
       },

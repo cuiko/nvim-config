@@ -31,19 +31,20 @@ return {
         diffview = true,
       },
     },
-    config = function(_, opts)
-      require("neogit").setup(opts)
-
-      local cmp = require("cmp")
-      cmp.setup.filetype({ "NeogitCommitMessage" }, {
-        sources = cmp.config.sources({
-          { name = "luasnip" },
-          { name = "buffer" },
-        }, {
-          { name = "path" },
-        }),
-      })
-    end,
+    -- TODO: remove cmp
+    -- config = function(_, opts)
+    --   require("neogit").setup(opts)
+    --
+    --   local cmp = require("cmp")
+    --   cmp.setup.filetype({ "NeogitCommitMessage" }, {
+    --     sources = cmp.config.sources({
+    --       { name = "luasnip" },
+    --       { name = "buffer" },
+    --     }, {
+    --       { name = "path" },
+    --     }),
+    --   })
+    -- end,
     cmd = "Neogit",
     keys = {
       { "<leader>gg", "<cmd>Neogit<cr>", desc = "Neogit (root dir)" },

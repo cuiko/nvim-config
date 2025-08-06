@@ -27,6 +27,9 @@ return {
     config = function(_, opts)
       require("go").setup(opts)
 
+      if not package.loaded["which-key"] then
+        return
+      end
       require("which-key").add({
         { "<leader>cx", group = "go", icon = icons.kinds.Event },
         { "<leader>cxt", group = "tag" },
