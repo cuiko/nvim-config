@@ -16,7 +16,7 @@ return {
   },
   -- disable lazyvim build-in leap keys
   {
-    "ggandor/leap.nvim",
+    url = "https://codeberg.org/andyg/leap.nvim.git",
     config = true,
     keys = false,
   },
