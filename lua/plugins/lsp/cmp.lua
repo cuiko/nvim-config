@@ -2,12 +2,13 @@ return {
   {
     "saghen/blink.cmp",
     dependencies = {
-      "Kaiser-Yang/blink-cmp-avante",
+      -- "Kaiser-Yang/blink-cmp-avante",
       "giuxtaposition/blink-cmp-copilot",
     },
     opts = {
       sources = {
-        default = { "copilot", "avante", "lsp", "path", "snippets", "buffer" },
+        -- default = { "copilot", "avante", "lsp", "path", "snippets", "buffer" },
+        default = { "copilot", "lsp", "path", "snippets", "buffer" },
         providers = {
           copilot = {
             name = "copilot",
@@ -16,11 +17,11 @@ return {
             score_offset = 100,
             async = true,
           },
-          avante = {
-            module = "blink-cmp-avante",
-            name = "Avante",
-            opts = {},
-          },
+          -- avante = {
+          --   module = "blink-cmp-avante",
+          --   name = "Avante",
+          --   opts = {},
+          -- },
         },
       },
       cmdline = {

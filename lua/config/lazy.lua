@@ -16,8 +16,8 @@ require("lazy").setup({
     { import = "plugins.coding" },
     { import = "plugins.colorscheme" },
     { import = "plugins.editor" },
-    { import = "plugins.extras.ai.avante" },
-    { import = "plugins.extras.ai.gp" },
+    -- { import = "plugins.extras.ai.avante" },
+    -- { import = "plugins.extras.ai.gp" },
     -- { import = "plugins.extras.harpoon" },
     { import = "plugins.extras.vscode", enabled = vim.g.vscode },
     {
