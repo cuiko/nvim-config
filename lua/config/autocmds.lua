@@ -17,7 +17,9 @@ vim.api.nvim_create_autocmd("TermOpen", {
   command = "setlocal nonumber norelativenumber foldcolumn=1",
 })
 
-vim.api.nvim_create_autocmd("BufRead", {
-  pattern = "Caddyfile",
-  callback = function() vim.bo.commentstring = "#%s" end,
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  group = augroup("no_ext_comment"),
+  callback = function(args)
+    if vim.bo[args.buf].filetype == "" then vim.bo[args.buf].commentstring = "#%s" end
+  end,
 })
