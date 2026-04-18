@@ -10,6 +10,7 @@ local map = require("util").keymap.set
 -- basic
 map({
   { "i", "<C-p>", "" },
+  { "i", "<S-Tab>", "<C-d>", { desc = "Un-indent current line" } },
 
   { "n", "[o", [[<cmd>execute "normal! O"<CR>]], { desc = "Put blank line before cursor" } },
   { "n", "]o", [[<cmd>execute "normal! o"<CR>]], { desc = "Put blank line after cursor" } },
