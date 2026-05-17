@@ -3,6 +3,7 @@ return {
   {
     "michaelrommel/nvim-silicon",
     cmd = "Silicon",
+    enabled = function() return vim.fn.executable("silicon") == 1 end,
     opts = {
       font = "CaskaydiaCove Nerd Font=34",
       background = "#7BD3EA",

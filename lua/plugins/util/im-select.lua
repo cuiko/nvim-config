@@ -4,10 +4,7 @@ return {
     "keaising/im-select.nvim",
     vscode = true,
     event = "VeryLazy",
-    enabled = function()
-      vim.fn.system("im-select")
-      return vim.v.shell_error == 0 and true or false
-    end,
+    enabled = function() return vim.fn.executable("im-select") == 1 end,
     opts = {
       -- IM will be set to `default_im_select` in `normal` mode
       -- For Windows/WSL, default: "1033", aka: English US Keyboard
