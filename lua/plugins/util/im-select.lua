@@ -3,7 +3,7 @@ return {
   {
     "keaising/im-select.nvim",
     vscode = true,
-    event = "VeryLazy",
+    lazy = false,
     enabled = function() return vim.fn.executable("im-select") == 1 end,
     opts = {
       -- IM will be set to `default_im_select` in `normal` mode
