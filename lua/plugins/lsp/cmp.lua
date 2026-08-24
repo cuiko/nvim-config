@@ -9,6 +9,10 @@ return {
         preset = "default",
         ["<Tab>"] = {
           function()
+            -- 模板占位符跳转优先（${n:内容} 接受后 Tab 填写）
+            return require("fim").next_placeholder()
+          end,
+          function()
             return require("fim").accept()
           end,
           "snippet_forward",
@@ -24,8 +28,15 @@ return {
           "show_documentation",
           "hide_documentation",
         },
-        -- Ctrl+Right：补全当前行剩余（剩余行继续显示 ghost）
+        -- Ctrl+Right：接受下一个分词（模型 token 边界，语义分段）
         ["<C-Right>"] = {
+          function()
+            return require("fim").accept_word()
+          end,
+          "fallback",
+        },
+        -- Ctrl+Down：补全当前行剩余（剩余行继续显示 ghost）
+        ["<C-Down>"] = {
           function()
             return require("fim").accept_line()
           end,
