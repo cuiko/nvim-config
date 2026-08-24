@@ -25,7 +25,6 @@ return {
             require("fim").clear()
           end,
           "show",
-          "show_documentation",
           "hide_documentation",
         },
         -- Ctrl+Right：接受下一个分词（模型 token 边界，语义分段）
@@ -68,6 +67,12 @@ return {
         menu = {
           auto_show = true,
         },
+        documentation = {
+          auto_show = false, -- 不自动弹文档（避免遮挡代码）
+          window = {
+            max_height = 10, -- 兜底：即使显示也不挡太多
+          },
+        },
         ghost_text = {
           enabled = true,
           -- 菜单关闭时不显示列表项的 ghost，避免与 FIM ghost 竞争
@@ -83,7 +88,7 @@ return {
           },
         },
       },
-      signature = { enabled = true },
+      signature = { enabled = false },
       fuzzy = { implementation = "prefer_rust_with_warning" },
     },
     config = function(_, opts)
