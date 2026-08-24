@@ -1,5 +1,5 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then
   -- bootstrap lazy.nvim
   -- stylua: ignore
   vim.fn.system({ "git", "clone", "--filter=blob:none", "https://github.com/folke/lazy.nvim.git", "--branch=stable", lazypath })
@@ -17,7 +17,7 @@ require("lazy").setup({
     { import = "plugins.colorscheme" },
     { import = "plugins.editor" },
     -- { import = "plugins.extras.ai.avante" },
-    -- { import = "plugins.extras.ai.gp" },
+    { import = "plugins.extras.ai.gp" },
     -- { import = "plugins.extras.harpoon" },
     { import = "plugins.extras.vscode", enabled = vim.g.vscode },
     {

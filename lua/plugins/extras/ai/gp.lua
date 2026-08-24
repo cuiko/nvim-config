@@ -13,13 +13,13 @@ return {
     },
     opts = {
       providers = {
-        openai = {
-          endpoint = os.getenv("OPENAI_API_ENDPOINT") .. "/v1/chat/completions", -- https://api.openai.com/v1/chat/completions
-          secret = os.getenv("OPENAI_API_KEY") or "<OPENAI_API_KEY>",
+        -- 禁用 gp.nvim 内置默认 provider（未配 secret，不可用）
+        openai = { disable = true },
+        deepseek = {
+          endpoint = os.getenv("DEEPSEEK_BASE_URL") .. "/v1/chat/completions",
+          secret = os.getenv("DEEPSEEK_API_KEY") or "<DEEPSEEK_API_KEY>",
         },
       },
-      -- chat topic model (string with model name or table with model name and parameters)
-      chat_topic_gen_model = "gpt-4o-mini",
       -- optional curl parameters (for proxy, etc.)
       -- curl_params = { "--proxy", "http://X.X.X.X:XXXX" },
       -- conceal model parameters in chat
@@ -41,7 +41,7 @@ return {
             vim.cmd('noau normal! "vy"')
             selection = vim.fn.getreg("v")
           end
-          local agent = gp.get_command_agent("CodeGPT4oMini")
+          local agent = gp.get_command_agent("Code")
           local chat_system_prompt = "You are a Translator, please translate the following text between English and Chinese."
             .. "\nThere are a few points to note:"
             .. "\n1. If the text contains code comments such as -- , # , // or /* */ etc., please ignore these symbols when translating."
@@ -54,15 +54,22 @@ return {
       -- default command agents (model + persona)
       -- name, model and system_prompt are mandatory fields
       -- to use agent for chat set chat = true, for command set command = true
-      -- to remove some default agent completely set it just with the name like:
-      -- agents = {  { name = "ChatGPT4" }, ... },
+      -- 只保留自定义的 Chat / Code 两个 agent：
+      -- 删除 gp.nvim 内置默认 agent（新版语法：disable = true）
       agents = {
+        { name = "ChatGPT4o", disable = true },
+        { name = "ChatGPT4o-mini", disable = true },
+        { name = "ChatGPT-o3-mini", disable = true },
+        { name = "CodeGPT4o", disable = true },
+        { name = "CodeGPT4o-mini", disable = true },
+        { name = "CodeGPT-o3-mini", disable = true },
         {
-          name = "ChatGPT4o",
+          name = "Chat",
+          provider = "deepseek",
           chat = true,
           command = false,
           -- string with model name or table with model name and parameters
-          model = { model = "gpt-4o", temperature = 1.1, top_p = 1 },
+          model = { model = "deepseek-v4-flash", temperature = 1.1, top_p = 1 },
           -- system prompt (use this to specify the persona/role of the AI)
           system_prompt = "You are a general AI assistant.\n\n"
             .. "The user provided the additional info about how they would like you to respond:\n\n"
@@ -75,22 +82,12 @@ return {
             .. "- Take a deep breath; You've got this!\n",
         },
         {
-          name = "CodeGPT4o",
+          name = "Code",
+          provider = "deepseek",
           chat = false,
           command = true,
           -- string with model name or table with model name and parameters
-          model = { model = "gpt-4o", temperature = 0.8, top_p = 1 },
-          -- system prompt (use this to specify the persona/role of the AI)
-          system_prompt = "You are an AI working as a code editor.\n\n"
-            .. "Please AVOID COMMENTARY OUTSIDE OF THE SNIPPET RESPONSE.\n"
-            .. "START AND END YOUR ANSWER WITH:\n\n```",
-        },
-        {
-          name = "CodeGPT4oMini",
-          chat = false,
-          command = true,
-          -- string with model name or table with model name and parameters
-          model = { model = "gpt-4o-mini", temperature = 0.8, top_p = 1 },
+          model = { model = "deepseek-v4-flash", temperature = 0.8, top_p = 1 },
           -- system prompt (use this to specify the persona/role of the AI)
           system_prompt = "You are an AI working as a code editor.\n\n"
             .. "Please AVOID COMMENTARY OUTSIDE OF THE SNIPPET RESPONSE.\n"

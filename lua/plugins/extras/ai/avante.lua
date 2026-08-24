@@ -5,15 +5,15 @@ return {
   opts = {
     -- 在此处添加任何选项
     -- 例如
-    provider = "openai",
+    provider = "deepseek",
     providers = {
-      openai = {
-        endpoint = os.getenv("OPENAI_API_ENDPOINT") .. "/v1", -- https://api.openai.com/v1
-        model = "gpt-4o", -- 您想要的模型（或使用 gpt-4o 等）
-        timeout = 30000, -- 超时时间（毫秒），增加此值以适应推理模型
+      deepseek = {
+        endpoint = os.getenv("DEEPSEEK_BASE_URL") .. "/v1", -- DeepSeek（OpenAI 兼容）
+        model = "deepseek-v4-flash",
+        timeout = 30000, -- 超时时间（毫秒）
         extra_request_body = {
           temperature = 0.75,
-          max_tokens = 16384, -- 增加此值以包括推理模型的推理令牌
+          max_tokens = 16384,
           --reasoning_effort = "medium", -- low|medium|high，仅用于推理模型
         },
       },
