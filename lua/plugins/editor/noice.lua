@@ -52,6 +52,13 @@ return {
         progress = {
           enabled = false, -- use fidget instead of it
         },
+        signature = {
+          -- noice 会自建 augroup(noice_lsp_signature)，输入 LSP trigger char（如 "("）
+          -- 就主动请求 textDocument/signatureHelp，并把「完整签名 + docstring + 每个参数文档」
+          -- 全渲染出来（见 noice/lsp/signature.lua:43,177）——这才是遮挡代码的大弹窗来源，
+          -- 与 blink 的 documentation/signature 无关。这里关掉自动触发，交给 blink 渲染精简签名。
+          auto_open = { enabled = false },
+        },
       },
     },
   },

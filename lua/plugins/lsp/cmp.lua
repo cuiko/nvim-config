@@ -25,6 +25,7 @@ return {
             require("fim").clear()
           end,
           "show",
+          "show_documentation",
           "hide_documentation",
         },
         -- Ctrl+Right：接受下一个分词（模型 token 边界，语义分段）
@@ -68,10 +69,10 @@ return {
           auto_show = true,
         },
         documentation = {
-          auto_show = false, -- 不自动弹文档（避免遮挡代码）
-          window = {
-            max_height = 10, -- 兜底：即使显示也不挡太多
-          },
+          -- 恢复 LazyVim 默认行为：之前误判大弹窗来自这里才关掉，
+          -- 实际元凶是 noice 的 lsp.signature.auto_open（已在 editor/noice.lua 关闭）
+          auto_show = true,
+          auto_show_delay_ms = 200,
         },
         ghost_text = {
           enabled = true,
@@ -88,7 +89,21 @@ return {
           },
         },
       },
-      signature = { enabled = false },
+      -- 签名提示交给 blink：只显示签名行 + 高亮当前参数，不带 docstring
+      -- （noice 的自动签名已在 editor/noice.lua 关闭，避免两处同时弹）
+      signature = {
+        enabled = true,
+        trigger = {
+          enabled = true,
+          show_on_keyword = false, -- 只在 "(" "," 这类 trigger char 弹，打字不弹
+        },
+        window = {
+          show_documentation = false, -- 关键：不带类/函数文档，只留签名
+          max_height = 4,
+          max_width = 100,
+          border = "rounded",
+        },
+      },
       fuzzy = { implementation = "prefer_rust_with_warning" },
     },
     config = function(_, opts)
