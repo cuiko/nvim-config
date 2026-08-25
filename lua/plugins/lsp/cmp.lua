@@ -1,3 +1,9 @@
+-- fim 插件在缺 DEEPSEEK_API_KEY 时被 lazy 禁用（见 coding/fim.lua），
+-- 此时它不在 rtp 里。blink 加载 source 用的是无保护的 require(config.module)
+-- （sources/lib/provider/init.lua:39），把 deepseek_fim 无条件写进 sources.default
+-- 会让整个补全在没有 key 的机器上直接崩，所以这里跟着一起按 key 开关。
+local has_fim = os.getenv("DEEPSEEK_API_KEY") ~= nil
+
 return {
   {
     "saghen/blink.cmp",
@@ -52,7 +58,8 @@ return {
       },
       sources = {
         -- Ctrl+Space 菜单候选：传统补全 + AI（fim.source，复用注入的 provider）
-        default = { "lsp", "path", "snippets", "buffer", "deepseek_fim" },
+        default = has_fim and { "lsp", "path", "snippets", "buffer", "deepseek_fim" }
+          or { "lsp", "path", "snippets", "buffer" },
         providers = {
           deepseek_fim = {
             name = "DeepSeek",
